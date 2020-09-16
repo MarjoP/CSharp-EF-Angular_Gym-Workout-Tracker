@@ -1,12 +1,24 @@
 # Introduction 
-Rakenteilla oleva EntityFrameworkia hyödyntävä sovellus kuntosalitulosten tallentamiseen. 
+Rakenteilla oleva EntityFrameworkia hyï¿½dyntï¿½vï¿½ sovellus kuntosalitulosten tallentamiseen. 
 
 # Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+At the current stage the adding and querying data into and from the database is handled through the console. However, an appropriate user interface will be added in near future. 
+
+Actions and using the app:
+1. Add new user: This action will create a new user profile with a given name. You may not use an existing user name.
+
+2. List users: You will be able to see the reserved names ie. existing user profiles in the current database (later this should be a drop down list etc.). 
+
+3. Add new exercise: This action will add a new gym exercise with a given name to the database. This needs to be done only once for each exercise type. 
+
+4. List exercises: You will be able to see which exercises have already added to the database (later this shoud be a drop down list etc.).
+
+5. Add new result: This enables the user to add new result for a specific exercise and user to the database. Currently the app will record the day the result was added, however there should be an option to record also past exercises after UI development.
+
+6. List all results: This will list all results of all the users in the database.
+
+7. List results based on selection: This enables to get results for specific user or for specific exercise from the database. You can also choose to limit the amount of retrieved results (useful if the database gets big with lot of results...) There will be further options later on to get e.g. max-results and graphical expression of progress of a specific user. 
+
 
 # Build and Test
 TODO: Describe and show how to build your code and run the tests. 
