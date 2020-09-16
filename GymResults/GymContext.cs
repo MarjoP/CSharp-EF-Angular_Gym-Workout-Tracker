@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System;
 
 namespace GymResults
 {
@@ -6,7 +7,7 @@ namespace GymResults
     {
         public GymContext() : base()
         {
-         //   Database.SetInitializer<GymContext>(new CreateDatabaseIfNotExists<GymContext>());
+           // Database.SetInitializer<GymContext>(new CreateDatabaseIfNotExists<GymContext>());
           //  Database.SetInitializer<GymContext>(new DropCreateDatabaseIfModelChanges<GymContext>());
             Database.SetInitializer<GymContext>(new DropCreateDatabaseAlways<GymContext>());
 
@@ -23,7 +24,6 @@ namespace GymResults
         {
             get; set;
         }
-
     }
 
 }
