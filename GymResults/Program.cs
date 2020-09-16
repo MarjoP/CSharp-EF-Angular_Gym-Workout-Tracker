@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Data.Entity.Core.Mapping;
 using System.Linq;
@@ -6,6 +7,8 @@ using System.Security.Cryptography;
 
 namespace GymResults
 {
+
+    //TODO Muuta käyttöliittymä-puoli ja tietokantakäsittely erilleen?
     class Program
     {
         //Uuden käyttäjän lisääminen
@@ -90,7 +93,7 @@ namespace GymResults
             var exer = context.Exercises.Where(ex => ex.ExerciseName == name).FirstOrDefault<Exercise>();
             return exer;
         }
-        
+
         public static void AddResult(GymContext context)
         {
             Console.Write("UserName: ");
@@ -133,12 +136,12 @@ namespace GymResults
 
                     context.WorkoutDatas.Add(trainingData);
                     context.SaveChanges();
+                    Console.WriteLine("New result added!");
                 }
             }
         }
         //Listaa kaikki tulokset
-        //TODO tulosten haku käyttäjän, lajin, max-saavutusten jne. perusteella
-        //Tietyn lajin & käyttäjän Maksimi-tulosten haku kuvaajaan (käyttäjän kehityskaari)
+
         public static void ListResults(GymContext context)
         {
             if (!context.WorkoutDatas.Any())
@@ -151,67 +154,141 @@ namespace GymResults
                 Console.WriteLine("Date \t\t User \t\t Exercise \t\t result");
                 foreach (var result in context.WorkoutDatas)
                 {
-                    Console.WriteLine($"{result.Date.ToShortDateString()} \t\t {result.User.UserName} \t\t {result.Exercise.ExerciseName} \t\t {result.Result.Repeats} x {result.Result.Weight}");
+                    //  Console.WriteLine($"{result.Date.ToShortDateString()} \t {result.User.UserName} \t\t {result.Exercise.ExerciseName} \t\t {result.Result.Repeats} x {result.Result.Weight}");
+                    Console.WriteLine(result.Date.ToShortDateString());
+                    Console.WriteLine(result.User.UserName);
+                    Console.WriteLine(result.Exercise.ExerciseName);
+                    Console.WriteLine(result.Result.Repeats);
                 }
             }
         }
-        static void Main(string[] args)
+
+        //TODO Tietyn lajin & käyttäjän Maksimi-tulosten haku kuvaajaan (käyttäjän kehityskaari)
+        //TODO lisää mahdollisuus valita useita käyttäjiä tai lajeja
+        public static void GetSelectedResults(GymContext context)
         {
-
-            using (var context = new GymContext())
+            var sortedRecord = new List<WorkoutData>();
+            NameBeginning:
+            Console.WriteLine("\nGive username (leave the field blank to get the results for all users");
+            string user = Console.ReadLine();
+            if (user == "")
             {
-                Console.WriteLine("This is the beginning of a beautiful and functional app\n");
-                Console.WriteLine("Select action\n");
-                Console.WriteLine("0: Quit \n1: Add new user \t\t2: List users \n" +
-                    "3: Add new exercise \t\t4: List exercises \n5: Add result \t\t\t6: List results");
-                while (true)
+                sortedRecord = context.WorkoutDatas.ToList();
+            }
+            else if 
+            (GetUser(context, user) == null)
+            {
+                Console.WriteLine($"Could not found user with name {user}");
+                goto NameBeginning;
+            }
+            else
+            {
+                sortedRecord = context.WorkoutDatas.Where(s => s.User.UserName == user).ToList();
+            }
+
+            Console.WriteLine("Give name of the exercise: \n(leave the field blank to get results for all exercises): ");
+            string exercise = Console.ReadLine(); 
+
+            if (exercise == "")
+            {
+                //ei muutosta
+            } 
+            else if (GetExercise(context, exercise) == null)
+            {
+                Console.WriteLine($"Could not found exercise with name {exercise}");
+            }
+            else
+            {
+                sortedRecord = sortedRecord.Where(s => s.Exercise.ExerciseName == exercise).ToList();
+            }
+
+            Console.WriteLine("How many records: \n(leave this as blank if you want all records to be shown): ");
+            string quantity = Console.ReadLine(); 
+            int amount;
+            if (quantity == "")
+            {
+             //ei muutosta
+            }
+            else if (!Int32.TryParse(quantity, out amount))
+            {
+                Console.WriteLine($"Invalid user input, {quantity} is not a number");
+            }
+            else
+            {
+                sortedRecord = sortedRecord.TakeLast<WorkoutData>(amount).ToList();
+            }
+
+            if (sortedRecord == null)
+            {
+                Console.WriteLine("No records found");
+            }
+            else
+            {
+                Console.WriteLine("Results:");
+                Console.WriteLine("Date \t\t User \t\t Exercise \t\t result");
+                foreach (var result in sortedRecord)
                 {
-                    string action = Console.ReadLine();
-
-                    if (action == "0")
-                    {
-                        break;
-                    }
-
-                    switch (action)
-                    {
-                        case "1":
-                            AddUser(context);
-                            break;
-
-                        case "2":
-                            ListUsers(context);
-                            break;
-
-                        case "3":
-                            AddExercise(context);
-                            break;
-
-                        case "4":
-                            ListExercises(context);
-                            break;
-
-                        case "5":
-                            AddResult(context);
-                            break;
-
-                        case "6":
-                            ListResults(context);
-                            break;
-
-                        default:
-                            Console.WriteLine($"Please, select the action from the list. Your input '{action}' is not a valid command.");
-                            break;
-                    }
-                    Console.Write("\nSelect action: ");
+                    Console.WriteLine($"{result.Date.ToShortDateString()} \t {result.User.UserName} \t\t {result.Exercise.ExerciseName} \t\t {result.Result.Repeats} x {result.Result.Weight}");
                 }
-
             }
         }
 
+    static void Main(string[] args)
+    {
 
+        using (var context = new GymContext())
+        {
+            Console.WriteLine("This is the beginning of a beautiful and functional app\n");
+            Console.WriteLine("Select action\n");
+            Console.WriteLine("0: Quit \n1: Add new user \t\t2: List users \n" +
+                "3: Add new exercise \t\t4: List exercises \n5: Add result \t\t\t6: List all results \n\n" +
+                "7: List results based on selection: user/exercise/latest/max-results (this selection is under work...)");
+            while (true)
+            {
+                string action = Console.ReadLine();
 
+                if (action == "0")
+                    break;
+
+                switch (action)
+                {
+                    case "1":
+                        AddUser(context);
+                        break;
+
+                    case "2":
+                        ListUsers(context);
+                        break;
+
+                    case "3":
+                        AddExercise(context);
+                        break;
+
+                    case "4":
+                        ListExercises(context);
+                        break;
+
+                    case "5":
+                        AddResult(context);
+                        break;
+
+                    case "6":
+                        ListResults(context);
+                        break;
+
+                    case "7":
+                        GetSelectedResults(context);
+                        break;
+
+                    default:
+                        Console.WriteLine($"Please, select the action from the list. Your input '{action}' is not a valid command.");
+                        break;
+                }
+                Console.Write("\nSelect action: ");
+            }
+        }
     }
+}
 }
 
 
