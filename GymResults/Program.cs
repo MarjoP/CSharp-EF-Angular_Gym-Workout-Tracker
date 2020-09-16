@@ -45,6 +45,20 @@ namespace GymResults
                 }
             }
         }
+        public static void HelperMethod1(GymContext context)
+        {
+            foreach (var User in context.Users)
+            {
+            //do nothing
+            }
+        }
+        public static void HelperMethod2(GymContext context)
+        {
+            foreach (var Exercise in context.Exercises)
+            {
+                //do nothing
+            }
+        }
 
         //Hae tietty käyttäjä, palauttaa null jos käyttäjää ei löydy
         public static User GetUser(GymContext context, string name)
@@ -144,6 +158,9 @@ namespace GymResults
 
         public static void ListResults(GymContext context)
         {
+            HelperMethod1(context);
+            HelperMethod2(context);
+
             if (!context.WorkoutDatas.Any())
             {
                 Console.WriteLine("No stored workout results.");
@@ -154,11 +171,8 @@ namespace GymResults
                 Console.WriteLine("Date \t\t User \t\t Exercise \t\t result");
                 foreach (var result in context.WorkoutDatas)
                 {
-                    //  Console.WriteLine($"{result.Date.ToShortDateString()} \t {result.User.UserName} \t\t {result.Exercise.ExerciseName} \t\t {result.Result.Repeats} x {result.Result.Weight}");
-                    Console.WriteLine(result.Date.ToShortDateString());
-                    Console.WriteLine(result.User.UserName);
-                    Console.WriteLine(result.Exercise.ExerciseName);
-                    Console.WriteLine(result.Result.Repeats);
+                      Console.WriteLine($"{result.Date.ToShortDateString()} \t {result.User?.UserName} \t\t {result.Exercise?.ExerciseName} \t\t {result.Result.Repeats} x {result.Result.Weight}");
+               
                 }
             }
         }
@@ -167,6 +181,8 @@ namespace GymResults
         //TODO lisää mahdollisuus valita useita käyttäjiä tai lajeja
         public static void GetSelectedResults(GymContext context)
         {
+            HelperMethod1(context);
+            HelperMethod2(context);
             var sortedRecord = new List<WorkoutData>();
             NameBeginning:
             Console.WriteLine("\nGive username (leave the field blank to get the results for all users");
@@ -228,7 +244,7 @@ namespace GymResults
                 Console.WriteLine("Date \t\t User \t\t Exercise \t\t result");
                 foreach (var result in sortedRecord)
                 {
-                    Console.WriteLine($"{result.Date.ToShortDateString()} \t {result.User.UserName} \t\t {result.Exercise.ExerciseName} \t\t {result.Result.Repeats} x {result.Result.Weight}");
+                    Console.WriteLine($"{result.Date.ToShortDateString()} \t {result.User?.UserName} \t\t {result.Exercise?.ExerciseName} \t\t {result.Result.Repeats} x {result.Result.Weight}");
                 }
             }
         }
@@ -241,7 +257,7 @@ namespace GymResults
             Console.WriteLine("This is the beginning of a beautiful and functional app\n");
             Console.WriteLine("Select action\n");
             Console.WriteLine("0: Quit \n1: Add new user \t\t2: List users \n" +
-                "3: Add new exercise \t\t4: List exercises \n5: Add result \t\t\t6: List all results \n\n" +
+                "3: Add new exercise \t\t4: List exercises \n5: Add result \t\t\t6: List all results \n" +
                 "7: List results based on selection: user/exercise/latest/max-results (this selection is under work...)");
             while (true)
             {
