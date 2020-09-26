@@ -1,7 +1,33 @@
-<h1>Counter</h1>
+<h1 id="addResultsHeading">Add new workout results</h1>
 
-<p>This is a simple example of an Angular component.</p>
+<p>Use the fields below to add new workout results</p>
 
-<p aria-live="polite">Current count: <strong>{{ currentCount }}</strong></p>
+<section class="selectionContainer">
 
-<button class="btn btn-primary" (click)="incrementCounter()">Increment</button>
+  <select ng-model="selectedUser" (change)="selUser($event.target.value)">
+    <option value="select">--Select user--</option>
+    <option *ngFor="let user of users" value="{{user.userName}}">{{user.userName}}</option>
+    <option value="new User">New</option>
+  </select>
+
+  <select ng-model="selectedExercise" (change)="selExercise($event.target.value)">
+    <option value="select">--Select exercise--</option>
+    <option *ngFor="let exercise of exercises" value="{{exercise.exerciseName}}">{{exercise.exerciseName}}</option>
+    <option value="newExercise">New</option>
+  </select>
+
+  <section class="resultData">
+    <article>
+      <h5>Repeats</h5>
+      <input [(ngModel)]="repeats" type="number" min="0">
+    </article>
+    <article>
+        <h5>Weight</h5>
+        <input [(ngModel)]="weight" type="number" min="0">
+     </article>
+  </section>
+
+  <button class="btn btn-primary" (click)="addnewResult()">Add result</button>
+</section>
+<hr />
+
