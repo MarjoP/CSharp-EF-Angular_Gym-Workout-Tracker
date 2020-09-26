@@ -38,10 +38,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Remove="ClientApp\node_modules\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Remove="Models\SimpleResult.cs" />
   </ItemGroup>
 
