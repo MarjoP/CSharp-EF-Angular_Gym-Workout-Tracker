@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GymWorkoutTracker.Data;
 using GymWorkoutTracker.Models;
+using Microsoft.EntityFrameworkCore.Storage;
+using System.Security.Cryptography.Xml;
 
 namespace GymWorkoutTracker.Controllers
 {
@@ -16,16 +18,19 @@ namespace GymWorkoutTracker.Controllers
     {
         private readonly WorkoutContext _context;
 
+
         public ResultsController(WorkoutContext context)
         {
             _context = context;
+           
         }
 
         // GET: api/Results
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Result>>> GetResults()
         {
-            return await _context.Results.ToListAsync();
+            var list = await _context.Results.Include(a => a.User).Include(b => b.Exercise).ToListAsync();
+            return list;
         }
 
         // GET: api/Results/5
@@ -38,10 +43,37 @@ namespace GymWorkoutTracker.Controllers
             {
                 return NotFound();
             }
-
             return result;
         }
 
+
+        // GET: api/Results/name&exercise&quantity
+        [HttpGet("{user}/{exercise}/{quantity}")]
+        public async Task<ActionResult<IEnumerable<Result>>> GetSelectedResults(string user, string exercise, int quantity)
+        {
+             Console.WriteLine("request received");
+
+           var sortedRecord =  new List<Result>();
+            if (user == "allUsers")
+            {
+                sortedRecord =  _context.Results.Include(a => a.User).Include(b => b.Exercise).OrderByDescending(s => s.Date).ToList();
+            }
+            else
+            {
+                sortedRecord = _context.Results.Include(a => a.User).Include(b => b.Exercise).Where(s => s.User.UserName == user).ToList();
+            }
+            if (exercise != "allExercises")
+            {
+                sortedRecord = sortedRecord.Where(x => x.Exercise.ExerciseName == exercise).TakeLast(quantity).ToList();
+            }
+            else
+            {
+                sortedRecord = sortedRecord.TakeLast(quantity).ToList();
+            }
+            return  sortedRecord;
+        }
+        
+      
         // PUT: api/Results/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.

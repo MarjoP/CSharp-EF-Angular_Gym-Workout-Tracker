@@ -2,15 +2,16 @@
 
 namespace GymWorkoutTracker.Models
 {
-    public class Result
+    public class SimpleResult
     {
         public int Id {
             get; set;
         }
-        public User User {
+      
+        public string UserName {
             get; set;
         }
-        public Exercise Exercise {
+        public string ExerciseName {
             get; set;
         }
         public DateTime Date {

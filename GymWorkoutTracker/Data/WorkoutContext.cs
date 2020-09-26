@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using GymWorkoutTracker.Models;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace GymWorkoutTracker.Data
 {
@@ -108,7 +109,7 @@ namespace GymWorkoutTracker.Data
         {
             foreach (var User in Users)
             {
-            // do nothing
+                // do nothing
             }
         }
         public void HelperMethod2()
@@ -122,42 +123,38 @@ namespace GymWorkoutTracker.Data
         //TODO Eroon helpermetodeista?
         public List<Result> GetAllResults()
         {
-            HelperMethod1();
-            HelperMethod2();
+
             if (!Results.Any())
             {
                 return null;
             }
             else
             {
-                return Results.ToList();
-            }
+            
+            return Results.Include(a => a.User).ToList();
         }
-
+        }
+    
         public List<Result> GetSelectedResults(string name, string exer, int qty)
         {
-            HelperMethod1();
-            HelperMethod2();
             var sortedRecord = new List<Result>();
-            if (name == "")
+            if (name == "allUsers")
             {
-                sortedRecord = Results.OrderByDescending(s => s.Date).ToList();
+                sortedRecord = Results.Include(a => a.User).Include(b => b.Exercise).OrderByDescending(s => s.Date).ToList();
             }
             else
             {
-                sortedRecord = Results.Where(s => s.User.UserName == name).ToList();
+                sortedRecord = Results.Include(a => a.User).Include(b => b.Exercise).Where(s => s.User.UserName == name).ToList();
             }
-            if (exer != "")
+            if (exer != "allExercises")
             {
                 sortedRecord = sortedRecord.Where(x => x.Exercise.ExerciseName == exer).TakeLast(qty).ToList();
             }
-
             else
             {
                 sortedRecord = sortedRecord.TakeLast(qty).ToList();
             }
             return sortedRecord;
-       
         }
     }
 }

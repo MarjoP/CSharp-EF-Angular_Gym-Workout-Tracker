@@ -1,24 +1,49 @@
-<h1 id="tableLabel">Weather forecast</h1>
+<h1 id="tableLabel">Workout history</h1>
 
-<p>This component demonstrates fetching data from the server.</p>
+<p>Select below which workout results you want to view.</p>
 
-<p *ngIf="!forecasts"><em>Loading...</em></p>
+<section class="selectionContainer">
+  <select ng-model="selectedUser" (change)="selUser($event.target.value)">
+    <option value="select">--Select user--</option>
+    <option value="allUsers">All users</option>
+    <option *ngFor="let user of users" value="{{user.userName}}">{{user.userName}}</option>
+  </select>
 
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="forecasts">
+  <select ng-model="selectedExercise" (change)="selExercise($event.target.value)">
+    <option value="select">--Select exercise--</option>
+    <option value="allExercises">All exercises</option>
+    <option *ngFor="let exercise of exercises" value="{{exercise.exerciseName}}">{{exercise.exerciseName}}</option>
+  </select>
+
+  <h5>How many records(optional)</h5>
+  <input [(ngModel)]="quantity" type="number" min="0">
+
+  <button class="btn btn-primary" (click)="fetchSorted()">Get results</button>
+</section>
+
+
+<p *ngIf="!results"><em>Loading...</em></p>
+<h4>Results...</h4>
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="results">
   <thead>
     <tr>
       <th>Date</th>
-      <th>Temp. (C)</th>
-      <th>Temp. (F)</th>
-      <th>Summary</th>
+      <th>User</th>
+      <th>Exercise</th>
+      <th>Repeats</th>
+      <th>Weight</th>
+
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let forecast of forecasts">
-      <td>{{ forecast.date }}</td>
-      <td>{{ forecast.temperatureC }}</td>
-      <td>{{ forecast.temperatureF }}</td>
-      <td>{{ forecast.summary }}</td>
+    <tr *ngFor="let result of results">
+      <td>{{ result.date }}</td>
+      <td>{{ result.user.userName }}</td>
+      <td>{{ result.exercise.exerciseName }}</td>
+      <td>{{ result.repeats }}</td>
+      <td>{{ result.weight }}</td>
     </tr>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+
+

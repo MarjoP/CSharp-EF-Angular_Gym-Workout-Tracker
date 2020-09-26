@@ -34,6 +34,12 @@ namespace GymWorkoutTracker
             services.AddDbContext<WorkoutContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("WorkoutContext")));
 
+            services.AddControllersWithViews()
+            .AddNewtonsoftJson(options =>
+             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+               );
+
+
             //Enabling CORS
             /*   services.AddCors(options =>
                {
@@ -73,7 +79,7 @@ namespace GymWorkoutTracker
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
+                    pattern: "{controller}/{action=Index}/");
             });
 
             app.UseSpa(spa =>

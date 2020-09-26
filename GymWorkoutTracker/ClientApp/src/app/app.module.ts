@@ -10,6 +10,8 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 
+
+import { WorkoutService } from './workout.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +30,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
       { path: 'fetch-data', component: FetchDataComponent },
     ])
   ],
-  providers: [],
+  providers: [WorkoutService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

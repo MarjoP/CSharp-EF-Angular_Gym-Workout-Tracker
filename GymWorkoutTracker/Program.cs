@@ -24,19 +24,18 @@ namespace GymWorkoutTracker
                     var context = services.GetRequiredService<WorkoutContext>();
                     DbInitializer.Initialize(context);
                     //Siirrä allaolevat myöhemmin parempaan kohtaan
-                    var UI = new UserInterface();
-                    UI.Start(context);
+                   // var UI = new UserInterface();
+                   // UI.Start(context);
                 }
                 catch (Exception ex)
                 {
                     var logger = services.GetRequiredService<ILogger<Program>>();
                     logger.LogError(ex, "An error occured while seeding the database.");
                 }
+                host.Run();
             }
-            
-            host.Run();
+           
 
-         
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
