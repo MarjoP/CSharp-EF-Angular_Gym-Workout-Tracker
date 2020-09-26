@@ -12,13 +12,15 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 
 
 import { WorkoutService } from './workout.service';
+import { DialogBoxComponent } from './dialog-box/dialog-box.component';
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
     CounterComponent,
-    FetchDataComponent
+    FetchDataComponent,
+    DialogBoxComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
