@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { WorkoutService } from '../workout.service';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-counter-component',
@@ -17,7 +18,10 @@ export class CounterComponent {
   public repeats: number;
   public weight: number;
 
-  constructor(private router: Router, private woService: WorkoutService) { 
+  newUser: string;
+
+
+  constructor(private router: Router, private woService: WorkoutService, public dialog: MatDialog) { 
 
     this.woService.getUsers().subscribe(result => {
       this.users = result;
@@ -39,17 +43,26 @@ export class CounterComponent {
     this.selectedExercise = filterVal;
   }
 
-  /*
-  openDialog(): void {
-    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+  openUserDialog(): void {
+    const dialogRef = this.dialog.open(DialogBoxComponent), {
       width: '250px',
-      data: { name: this.name, animal: this.animal }
+      data: { newUser: this.newUser, }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.animal = result;
+      this.newUser = result;
     });
-  }   */
+
+    openExerciseDialog(): void {
+      const dialogRef = this.dialog.open(DialogBoxComponent), {
+      width: '250px',
+        data: { newExercise: this.newExercise,}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.newUser = result;
+    });
 
 }
