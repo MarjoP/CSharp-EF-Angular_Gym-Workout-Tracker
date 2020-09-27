@@ -3,10 +3,10 @@
   <p>Name of the new user: </p>
   <mat-form-field>
     <mat-label>name</mat-label>
-    <input matInput [(ngModel)]="data.newName">
+    <input matInput [(ngModel)]="data.newUser">
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button [mat-dialog-close]="data.newName" cdkFocusInitial>Ok</button>
+  <button mat-button [mat-dialog-close]="data.newUser" cdkFocusInitial>Ok</button>
 </div>
