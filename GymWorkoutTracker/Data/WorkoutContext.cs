@@ -105,22 +105,8 @@ namespace GymWorkoutTracker.Data
                 return false;
             }
         }
-        public void HelperMethod1()
-        {
-            foreach (var User in Users)
-            {
-                // do nothing
-            }
-        }
-        public void HelperMethod2()
-        {
-            foreach (var Exercise in Exercises)
-            {
-                // do nothing
-            }
-        }
-
-        //TODO Eroon helpermetodeista?
+       
+     
         public List<Result> GetAllResults()
         {
 

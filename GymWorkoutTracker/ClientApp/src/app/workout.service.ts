@@ -49,4 +49,8 @@ export class WorkoutService {
   public addUser(user) {
     return this.http.post(this.baseUrl + 'api/users', user, { headers: this.headers });
   }
+
+  public addExercise(exercise) {
+    return this.http.post(this.baseUrl + 'api/exercises', exercise, { headers: this.headers });
+  }
 }
