@@ -7,7 +7,7 @@
   <select ng-model="selectedUser" (change)="selUser($event.target.value)">
     <option value="select">--Select user--</option>
     <option *ngFor="let user of users" value="{{user.userName}}">{{user.userName}}</option>
-    <option value="new User">New</option>
+    <option value="newUser">New</option>
   </select>
 
   <select ng-model="selectedExercise" (change)="selExercise($event.target.value)">

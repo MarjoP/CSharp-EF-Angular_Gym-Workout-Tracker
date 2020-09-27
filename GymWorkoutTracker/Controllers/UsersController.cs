@@ -74,6 +74,7 @@ namespace GymWorkoutTracker.Controllers
             return NoContent();
         }
 
+
         // POST: api/Users
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
@@ -83,9 +84,31 @@ namespace GymWorkoutTracker.Controllers
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.UserId }, user);
+            return CreatedAtAction("GetUser", new
+            {
+                id = user.UserId
+            }, user);
         }
 
+        // POST: api/Users
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
+        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+      /*  [HttpPost]
+        public async Task<ActionResult<User>> PostUser(string userName)
+        {
+            Console.WriteLine("post received");
+            if (_context.CreateUser(userName))
+            {
+                await _context.SaveChangesAsync();
+                Console.WriteLine("user Created");
+            }
+            else
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
+      */
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<User>> DeleteUser(int id)

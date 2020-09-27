@@ -1,0 +1,10 @@
+.dialogBox {
+    height:150px;
+    width: 200px;
+   border: solid 2px lightgray;
+   border-radius: 8px;
+}
+
+#nameInput {
+    height: 80px;
+}

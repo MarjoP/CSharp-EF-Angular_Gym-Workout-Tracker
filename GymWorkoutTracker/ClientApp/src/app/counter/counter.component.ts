@@ -19,59 +19,83 @@ export class CounterComponent {
   public repeats: number;
   public weight: number;
 
-  public newUser: string;
+  public newUser: any = {
+    userName: ""};
   public newExercise: string;
 
 
   constructor(private router: Router, private woService: WorkoutService, public dialog: MatDialog) { 
-
-    this.woService.getUsers().subscribe(result => {
+    this.updateUserList();
+    this.updateExerciseList();
+    /*this.woService.getUsers().subscribe(result => {
       this.users = result;
     }, error => console.error(error));
 
     this.woService.getExercises().subscribe(result => {
       this.exercises = result;
-    }, error => console.error(error));
+    }, error => console.error(error));  */
   }
+
+
   addNewResult() {
     //do something
   }
 
+  updateUserList() : void {
+    this.woService.getUsers().subscribe(result => {
+      this.users = result;
+    }, error => console.error(error));
+  }
+
+  updateExerciseList(): void {
+    this.woService.getExercises().subscribe(result => {
+      this.exercises = result;
+    }, error => console.error(error));
+  }
+
   selUser(filterVal: any) {
     this.selectedUser = filterVal;
-    if (filterVal == "newUser") {
-      //do something
+    if (filterVal === "newUser") {
+      console.log("New user selected");
+      this.openUserDialog();
     }
   }
 
   selExercise(filterVal: any) {
     this.selectedExercise = filterVal;
-    if (filterVal == "newExercise") {
-      //do something 
+    if (filterVal === "newExercise") {
+      this.openExerciseDialog();
     }
   }
   
   openUserDialog(): void {
     const dialogRef = this.dialog.open(DialogBoxComponent, {
-      width:'250px',
-      data: { newUser: this.newUser, }
+      width: '300px',
+      height: '300px',
+      data: { newUser: this.newUser.userName}
     });
 
+    console.log("Dialog opened");
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.newUser = result;
+      this.newUser.userName = result;
+      this.woService.addUser(this.newUser).subscribe(res => {
+      }, error => console.error(error));
     });
+    this.updateUserList();
   }
+
+
 
   openExerciseDialog(): void {
     const dialogRef = this.dialog.open(DialogBoxComponent, {
-      width: '250px;',
-      data: { newExercise: this.newExercise, }
+      width: '300px',
+      height: '300px',
+      data: { newExercise: this.newExercise}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.newUser = result;
+      this.newExercise= result;
     });
   }
 }

@@ -21,8 +21,7 @@ export class WorkoutService {
     return this.http.get(this.baseUrl + 'api/results');
   }
   public getSelectedResults(us, ex, co) {
-    //return this.http.get(this.baseUrl +'api/results/selected");
-    //tähän yhteys controlleriin: esim. return this.http.get(this.baseUrl +'api/results&user="us"&exercise="ex"&count");
+  //return selected, path:
     return this.http.get(this.baseUrl + 'api/results/' + us+"/" + ex+"/"+co );
   }
 
@@ -45,5 +44,9 @@ export class WorkoutService {
   public getExercises() {
     //Get all exercises
     return this.http.get(this.baseUrl + 'api/exercises');
+  }
+
+  public addUser(user) {
+    return this.http.post(this.baseUrl + 'api/users', user, { headers: this.headers });
   }
 }
