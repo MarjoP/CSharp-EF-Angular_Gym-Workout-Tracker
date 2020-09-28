@@ -108,12 +108,14 @@ namespace GymWorkoutTracker.Controllers
 
         }
 
-
-        // DELETE: api/Exercises/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Exercise>> DeleteExercise(int id)
+        // DELETE: api/Exercises/penkki
+        [HttpDelete("{exerciseName}")]
+        public async Task<ActionResult<Exercise>> DeleteExercise(string exerciseName)
         {
-            var exercise = await _context.Exercises.FindAsync(id);
+            var exercise = _context.GetExercise(exerciseName);
+            var index = exercise.ExerciseId;
+            exercise = await _context.Exercises.FindAsync(index);
+
             if (exercise == null)
             {
                 return NotFound();

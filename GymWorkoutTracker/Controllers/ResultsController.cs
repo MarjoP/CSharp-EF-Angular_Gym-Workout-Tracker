@@ -122,11 +122,19 @@ namespace GymWorkoutTracker.Controllers
         [HttpPost]
         public async Task<ActionResult<Result>> PostResult(Result result)
         {
-            result.Date = DateTime.Now.Date;    
-            _context.Results.Add(result);
+            Result newResult = new Result
+            {
+                User = _context.GetUser(result.User.UserName),
+                Exercise = _context.GetExercise(result.Exercise.ExerciseName),
+                Weight = result.Weight,
+                Repeats = result.Repeats,
+                Date = DateTime.Now.Date
+            };
+             
+            _context.Results.Add(newResult);
             await _context.SaveChangesAsync();
    
-            return CreatedAtAction("GetResult", new { id = result.Id }, result);
+            return CreatedAtAction("GetResult", new { id = newResult.Id }, newResult);
         }
 
 

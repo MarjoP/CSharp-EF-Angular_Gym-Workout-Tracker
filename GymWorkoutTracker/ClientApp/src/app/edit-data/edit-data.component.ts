@@ -64,12 +64,16 @@ export class EditDataComponent  {
     this.woService.deleteUser(this.selectedUser).subscribe(result => {
       Swal.fire("User deleted...");
       this.updateUserList();
-    }, error => Swal.fire("Could not delete user" +error));
+    }, error => Swal.fire("Oops! Something went wrong. Could not delete user."));
   }
 
   deleteExerciseName() {
-
+    this.woService.deleteExercise(this.selectedExercise).subscribe(result => {
+      Swal.fire("Exercise deleted...");
+      this.updateExerciseList();
+    }, error => Swal.fire("Oops! Something went wrong. Could not delete exercise."));
   }
+
   deleteResult() {
 
   }

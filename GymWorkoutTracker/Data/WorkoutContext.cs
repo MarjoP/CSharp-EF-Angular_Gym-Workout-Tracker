@@ -38,10 +38,7 @@ namespace GymWorkoutTracker.Data
             modelBuilder.Entity<Exercise>().HasMany<Result>(g => g.Results)
                 .WithOne(h => h.Exercise)
                 .OnDelete(DeleteBehavior.Cascade);
-
         }
-
-
 
         public User GetUser(string name)
         {
@@ -50,7 +47,7 @@ namespace GymWorkoutTracker.Data
         }
         public Boolean CreateUser(String name)
         {
-            if (GetUser(name) == null)
+            if (!String.IsNullOrEmpty(name) && GetUser(name) == null)
             {
                 Users.Add(new User() { UserName = name });
                 SaveChanges();
@@ -80,7 +77,7 @@ namespace GymWorkoutTracker.Data
         }
         public Boolean CreateExercise(String name)
         {
-            if (GetExercise(name) == null)
+            if (!String.IsNullOrEmpty(name) && GetExercise(name) == null)
             {
                 Exercises.Add(new Exercise() { ExerciseName = name });
                 SaveChanges();

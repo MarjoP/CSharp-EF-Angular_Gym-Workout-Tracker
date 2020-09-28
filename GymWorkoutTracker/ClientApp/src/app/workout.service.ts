@@ -57,4 +57,8 @@ export class WorkoutService {
   public deleteUser(user) {
     return this.http.delete(this.baseUrl + 'api/users/' +user.userName, user.userName);
   }
+
+  public deleteExercise(exercise) {
+    return this.http.delete(this.baseUrl + 'api/exercise/' + exercise.exerciseName, exercise.exerciseName);
+  }
 }
