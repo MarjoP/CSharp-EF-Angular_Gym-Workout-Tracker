@@ -15,8 +15,8 @@
     <option *ngFor="let exercise of exercises" value="{{exercise.exerciseName}}">{{exercise.exerciseName}}</option>
   </select>
 
-  <h5>How many records(optional)</h5>
-  <input [(ngModel)]="quantity" type="number" min="0">
+  <h5>How many records(-1 = all records)</h5>
+  <input [(ngModel)]="quantity" type="number" min="-1">
 
   <button class="btn btn-primary" (click)="fetchSorted()">Get results</button>
 </section>

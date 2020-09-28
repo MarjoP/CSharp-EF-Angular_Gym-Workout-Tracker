@@ -14,6 +14,8 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 
 import { WorkoutService } from './workout.service';
 import { DialogBoxComponent } from './dialog-box/dialog-box.component';
+import { EditDataComponent } from './edit-data/edit-data.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,6 +24,7 @@ import { DialogBoxComponent } from './dialog-box/dialog-box.component';
     CounterComponent,
     FetchDataComponent,
     DialogBoxComponent,
+    EditDataComponent,
    
   ],
   imports: [
@@ -34,6 +37,7 @@ import { DialogBoxComponent } from './dialog-box/dialog-box.component';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'edit-data', component: EditDataComponent },
     ])
   ],
   providers: [WorkoutService],

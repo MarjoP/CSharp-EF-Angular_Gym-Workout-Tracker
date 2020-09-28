@@ -25,8 +25,8 @@ export class WorkoutService {
     return this.http.get(this.baseUrl + 'api/results/' + us+"/" + ex+"/"+co );
   }
 
-  public add(result) {
-    return this.http.post(this.baseUrl + 'api/results', result, { headers: this.headers });
+  public addResult(Result) {
+    return this.http.post(this.baseUrl + 'api/results', Result,  { headers: this.headers });
   }
   public remove(result) {
     return this.http.delete(this.baseUrl + 'api/results/' + result.id, { headers: this.headers });
@@ -52,5 +52,9 @@ export class WorkoutService {
 
   public addExercise(exercise) {
     return this.http.post(this.baseUrl + 'api/exercises', exercise, { headers: this.headers });
+  }
+
+  public deleteUser(user) {
+    return this.http.delete(this.baseUrl + 'api/users/' +user.userName, user.userName,);
   }
 }

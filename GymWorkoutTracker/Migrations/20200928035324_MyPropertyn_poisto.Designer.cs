@@ -4,14 +4,16 @@ using GymWorkoutTracker.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GymWorkoutTracker.Migrations
 {
     [DbContext(typeof(WorkoutContext))]
-    partial class WorkoutContextModelSnapshot : ModelSnapshot
+    [Migration("20200928035324_MyPropertyn_poisto")]
+    partial class MyPropertyn_poisto
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

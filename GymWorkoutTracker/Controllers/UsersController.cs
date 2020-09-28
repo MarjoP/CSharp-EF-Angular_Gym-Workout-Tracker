@@ -111,21 +111,25 @@ namespace GymWorkoutTracker.Controllers
              
           }
         
-        // DELETE: api/Users/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<User>> DeleteUser(int id)
+        // DELETE: api/Users/Pertti
+        [HttpDelete("{userName}")]
+        public async Task<ActionResult<User>> DeleteUser(string userName)
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
+            var user = _context.GetUser(userName);
+              var index = user.UserId;
+              user = await _context.Users.FindAsync(index);
+              if (user == null)
+              {
+                  return NotFound();
+              }
 
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
+              _context.Users.Remove(user);
+              await _context.SaveChangesAsync();
 
-            return user;
+              return user;
+            
         }
+
 
         private bool UserExists(int id)
         {

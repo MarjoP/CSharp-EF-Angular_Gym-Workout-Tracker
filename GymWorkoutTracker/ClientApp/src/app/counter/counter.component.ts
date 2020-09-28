@@ -15,21 +15,27 @@ export class CounterComponent {
   public users: any;
   public exercises: any;
 
-  public selectedUser: string;
-  public selectedExercise: string;
-  public repeats: number;
-  public weight: number;
-
+  public result: any = {
+    User: {
+      UserName:""
+    },
+   Exercise: {
+      ExerciseName:""
+    },
+      Repeats: "",
+      Weight: "",
+    }
+  
   public newUser: any = { userName: "" };
 
-  public newExercise: any = {exerciseName: "" };
+  public newExercise: any = { exerciseName: "" };
 
-  constructor(private router: Router, private woService: WorkoutService, public dialog: MatDialog) { 
+  constructor(private router: Router, private woService: WorkoutService, public dialog: MatDialog) {
     this.updateUserList();
     this.updateExerciseList();
   }
 
-  updateUserList() : void {
+  updateUserList(): void {
     this.woService.getUsers().subscribe(result => {
       this.users = result;
     }, error => console.error(error));
@@ -42,24 +48,24 @@ export class CounterComponent {
   }
 
   selUser(filterVal: any) {
-    this.selectedUser = filterVal;
+    this.result.User.UserName = filterVal;
     if (filterVal === "newUser") {
       this.openUserDialog();
     }
   }
 
   selExercise(filterVal: any) {
-    this.selectedExercise = filterVal;
+    this.result.Exercise.ExerciseName = filterVal;
     if (filterVal === "newExercise") {
       this.openExerciseDialog();
     }
   }
-  
+
   openUserDialog(): void {
     const dialogRef = this.dialog.open(DialogBoxComponent, {
       width: '300px',
       height: '300px',
-      data: { newUser: this.newUser.userName}
+      data: { newUser: this.newUser.userName }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -67,6 +73,7 @@ export class CounterComponent {
       this.woService.addUser(this.newUser).subscribe(res => {
         Swal.fire('Great! New user added.');
         this.updateUserList();
+        this.newUser.userName = "";
       }, error => Swal.fire('Could not add new user! Check if the username already exists in the list or try again with different name.'));
     });
   }
@@ -75,21 +82,28 @@ export class CounterComponent {
     const dialogRef = this.dialog.open(DialogBoxComponent, {
       width: '300px',
       height: '300px',
-      data: { newExercise: this.newExercise.exerciseName}
+      data: { newExercise: this.newExercise.ExerciseName }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.newExercise.exerciseName = result;
+      this.newExercise.ExerciseName = result;
       this.woService.addExercise(this.newExercise).subscribe(res => {
         Swal.fire('Great! New exercise added.');
         this.updateUserList();
+        this.newExercise.ExerciseName = "";
       }, error => Swal.fire('Could not add new exercise! Maybe it is already in the list?'));
     });
   }
 
   addNewResult(): void {
-  }
+    console.log(this.result);
+    this.woService.addResult(this.result).subscribe(res => {
+      Swal.fire('Well done! New results added.');
+      this.result.Repeats = "";
+      this.result.Weight = "";
+    }, error => Swal.fire('Something went wrong...'));
 
+}
 }
 
 

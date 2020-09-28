@@ -64,11 +64,21 @@ namespace GymWorkoutTracker.Controllers
             }
             if (exercise != "allExercises")
             {
-                sortedRecord = sortedRecord.Where(x => x.Exercise.ExerciseName == exercise).TakeLast(quantity).ToList();
+                if (quantity==-1)
+                {
+                    sortedRecord = sortedRecord.Where(x => x.Exercise.ExerciseName == exercise).ToList();
+                }
+                else
+                {
+                    sortedRecord = sortedRecord.Where(x => x.Exercise.ExerciseName == exercise).TakeLast(quantity).ToList();
+                }
             }
             else
             {
+                if (quantity != -1)
+                {
                 sortedRecord = sortedRecord.TakeLast(quantity).ToList();
+                }
             }
             return  sortedRecord;
         }
@@ -112,11 +122,13 @@ namespace GymWorkoutTracker.Controllers
         [HttpPost]
         public async Task<ActionResult<Result>> PostResult(Result result)
         {
+            result.Date = DateTime.Now.Date;    
             _context.Results.Add(result);
             await _context.SaveChangesAsync();
-
+   
             return CreatedAtAction("GetResult", new { id = result.Id }, result);
         }
+
 
         // DELETE: api/Results/5
         [HttpDelete("{id}")]

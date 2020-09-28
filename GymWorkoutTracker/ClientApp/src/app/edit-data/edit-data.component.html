@@ -1,0 +1,23 @@
+<h1>Edit data</h1>
+<p>Edit/emove username or exercise from the list or remove result from database</p>
+<p>Note. Deleting username does not delete the result records? Or does it?</p>
+
+<section class="selectionContainer">
+  <select ng-model="selectedUser" (change)="selUser($event.target.value)">
+    <option value="select">--Select user--</option>
+    <option *ngFor="let user of users" value="{{user.userName}}">{{user.userName}}</option>
+  </select>
+
+  <select ng-model="selectedExercise" (change)="selExercise($event.target.value)">
+    <option value="select">--Select exercise--</option>
+    <option *ngFor="let exercise of exercises" value="{{exercise.exerciseName}}">{{exercise.exerciseName}}</option>
+  </select>
+</section>
+
+<button class="btn btn-primary" (click)="deleteUserName()">Delete username</button>
+<button class="btn btn-primary" click="deleteExerciseName()">Delete Exercise </button>
+<button class="btn btn-primary" click="deleteResult()">Delete result</button>
+
+<button class="btn btn-primary" click="editUserName()">Edit username</button>
+<button class="btn btn-primary" click="editExerciseName()">Edit exercisename</button>
+

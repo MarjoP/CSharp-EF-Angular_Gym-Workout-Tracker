@@ -15,7 +15,7 @@ export class FetchDataComponent {
 
   public selectedUser: string;
   public selectedExercise: string;
-  public quantity: number;
+  public quantity: number = -1;
 
   constructor(private router: Router, private woService: WorkoutService) {
     this.woService.getResults().subscribe(result => {
