@@ -25,6 +25,23 @@ namespace GymWorkoutTracker.Data
             get; set;
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().HasMany<Result>(e => e.Results)
+                 .WithOne(a => a.User)
+                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Result>().HasOne<User>(b => b.User)
+                .WithMany(d => d.Results)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Exercise>().HasMany<Result>(g => g.Results)
+                .WithOne(h => h.Exercise)
+                .OnDelete(DeleteBehavior.Cascade);
+
+        }
+
+
 
         public User GetUser(string name)
         {

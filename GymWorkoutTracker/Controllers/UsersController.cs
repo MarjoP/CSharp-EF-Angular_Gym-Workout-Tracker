@@ -123,12 +123,18 @@ namespace GymWorkoutTracker.Controllers
                   return NotFound();
               }
 
-              _context.Users.Remove(user);
-              await _context.SaveChangesAsync();
-
-              return user;
+            _context.Users.Remove(user);
             
+            
+              await _context.SaveChangesAsync();
+              return user;
         }
+
+
+
+
+
+
 
 
         private bool UserExists(int id)
