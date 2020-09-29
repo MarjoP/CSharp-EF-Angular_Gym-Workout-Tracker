@@ -89,7 +89,7 @@ export class CounterComponent {
       this.newExercise.ExerciseName = result;
       this.woService.addExercise(this.newExercise).subscribe(res => {
         Swal.fire('Great! New exercise added.');
-        this.updateUserList();
+        this.updateExerciseList();
         this.newExercise.ExerciseName = "";
       }, error => Swal.fire('Could not add new exercise! Maybe it is already in the list?'));
     });

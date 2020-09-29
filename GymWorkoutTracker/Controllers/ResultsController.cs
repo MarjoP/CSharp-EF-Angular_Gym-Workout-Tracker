@@ -29,7 +29,7 @@ namespace GymWorkoutTracker.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Result>>> GetResults()
         {
-            var list = await _context.Results.Include(a => a.User).Include(b => b.Exercise).ToListAsync();
+            var list = await _context.Results.Include(a => a.User).Include(b => b.Exercise).OrderByDescending(s => s.Date).ToListAsync();
             return list;
         }
 
@@ -60,7 +60,7 @@ namespace GymWorkoutTracker.Controllers
             }
             else
             {
-                sortedRecord = _context.Results.Include(a => a.User).Include(b => b.Exercise).Where(s => s.User.UserName == user).ToList();
+                sortedRecord = _context.Results.Include(a => a.User).Include(b => b.Exercise).OrderByDescending(s => s.Date).Where(s => s.User.UserName == user).ToList();
             }
             if (exercise != "allExercises")
             {

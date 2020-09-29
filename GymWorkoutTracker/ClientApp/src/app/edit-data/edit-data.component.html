@@ -12,12 +12,17 @@
     <option value="select">--Select exercise--</option>
     <option *ngFor="let exercise of exercises" value="{{exercise.exerciseName}}">{{exercise.exerciseName}}</option>
   </select>
+
+<select ng-model="selectedEResult" (change)="selResult($event.target.value)">
+  <option value="select">--Select result--</option>
+  <option *ngFor="let result of results" value="{{result.id}}">{{result.id}}:{{result.date}}, {{result.exercise.exerciseName}}, 
+  {{result.user.userName}}, {{result.repeats}} x {{result.weight}}</option>
+</select>
 </section>
 
 <button class="btn btn-primary" (click)="deleteUserName()">Delete username</button>
 <button class="btn btn-primary" (click)="deleteExerciseName()">Delete Exercise </button>
-<button class="btn btn-primary" click="deleteResult()">Delete result</button>
+<button class="btn btn-primary" (click)="deleteResult()">Delete result</button>
 
-<button class="btn btn-primary" click="editUserName()">Edit username</button>
-<button class="btn btn-primary" click="editExerciseName()">Edit exercisename</button>
+
 

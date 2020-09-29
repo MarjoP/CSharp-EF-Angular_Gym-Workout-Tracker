@@ -8,28 +8,20 @@ import Swal from 'sweetalert2';
   templateUrl: './edit-data.component.html',
   styleUrls: ['./edit-data.component.css']
 })
-export class EditDataComponent  {
+export class EditDataComponent {
 
   public selectedUser: any = { userName: "" };
-  public selectedExercise: any = { exerciseName: "" }
-  public selectedResult: any;
+  public selectedExercise: any = { exerciseName: "" };
+  public selectedResult: any = { id: "" };
 
   public results: any;
   public users: any;
   public exercises: any;
 
   constructor(private router: Router, private woService: WorkoutService) {
-    this.woService.getResults().subscribe(result => {
-      this.results = result;
-    }, error => console.error(error));
-
-    this.woService.getUsers().subscribe(result => {
-      this.users = result;
-    }, error => console.error(error));
-
-    this.woService.getExercises().subscribe(result => {
-      this.exercises = result;
-    }, error => console.error(error));
+    this.updateUserList();
+    this.updateExerciseList();
+    this.updateResultList();
   }
 
   selUser(filterVal: any) {
@@ -38,6 +30,10 @@ export class EditDataComponent  {
 
   selExercise(filterVal: any) {
     this.selectedExercise.exerciseName = filterVal;
+  }
+
+  selResult(filterVal: any) {
+    this.selectedResult.id = filterVal;
   }
 
   updateUserList(): void {
@@ -51,9 +47,14 @@ export class EditDataComponent  {
       this.exercises = result;
     }, error => console.error(error));
   }
+  updateResultList(): void {
+    this.woService.getSelectedResults('allUsers', 'allExercises', 20).subscribe(result => {
+      this.results = result;
+    }, error => console.error(error));
+  }
 
   editUserName() {
-
+  
   }
 
   editExerciseName() {
@@ -75,7 +76,10 @@ export class EditDataComponent  {
   }
 
   deleteResult() {
-
+    this.woService.removeResult(this.selectedResult).subscribe(result => {
+      Swal.fire("Result deleted...");
+      this.updateResultList();
+    }, error => Swal.fire("Oops! Something went wrong. Result not deleted."));
   }
 
 

@@ -35,9 +35,10 @@ namespace GymWorkoutTracker.Data
                 .WithMany(d => d.Results)
                 .OnDelete(DeleteBehavior.Cascade);
 
+
             modelBuilder.Entity<Exercise>().HasMany<Result>(g => g.Results)
                 .WithOne(h => h.Exercise)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
         }
 
         public User GetUser(string name)
@@ -131,7 +132,7 @@ namespace GymWorkoutTracker.Data
             else
             {
             
-            return Results.Include(a => a.User).ToList();
+            return Results.Include(a => a.User).OrderByDescending(s => s.Date).ToList();
         }
         }
     
@@ -144,7 +145,7 @@ namespace GymWorkoutTracker.Data
             }
             else
             {
-                sortedRecord = Results.Include(a => a.User).Include(b => b.Exercise).Where(s => s.User.UserName == name).ToList();
+                sortedRecord = Results.Include(a => a.User).Include(b => b.Exercise).OrderByDescending(s => s.Date).Where(s => s.User.UserName == name).ToList();
             }
             if (exer != "allExercises")
             {

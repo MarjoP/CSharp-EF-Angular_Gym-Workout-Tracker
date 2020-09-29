@@ -28,12 +28,16 @@ export class WorkoutService {
   public addResult(Result) {
     return this.http.post(this.baseUrl + 'api/results', Result,  { headers: this.headers });
   }
-  public remove(result) {
+  public removeResult(result) {
     return this.http.delete(this.baseUrl + 'api/results/' + result.id, { headers: this.headers });
   }
 
   public update(result) {
     return this.http.put(this.baseUrl + 'api/results/' + result.id, result, { headers: this.headers });
+  }
+
+  public updateUser(user) {
+    return this.http.put(this.baseUrl + 'api/users/' + user.id, user, { headers: this.headers });
   }
 
   public getUsers() {
