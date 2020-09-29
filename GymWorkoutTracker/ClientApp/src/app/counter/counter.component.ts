@@ -25,14 +25,20 @@ export class CounterComponent {
       Repeats: "",
       Weight: "",
     }
-  
+
+
   public newUser: any = { userName: "" };
 
   public newExercise: any = { exerciseName: "" };
 
   constructor(private router: Router, private woService: WorkoutService, public dialog: MatDialog) {
-    this.updateUserList();
-    this.updateExerciseList();
+    this.woService.getUsers().subscribe(result => {
+      this.users = result;
+    }, error => console.error(error));
+
+    this.woService.getExercises().subscribe(result => {
+      this.exercises = result;
+    }, error => console.error(error));
   }
 
   updateUserList(): void {
@@ -56,6 +62,7 @@ export class CounterComponent {
 
   selExercise(filterVal: any) {
     this.result.Exercise.ExerciseName = filterVal;
+    
     if (filterVal === "newExercise") {
       this.openExerciseDialog();
     }

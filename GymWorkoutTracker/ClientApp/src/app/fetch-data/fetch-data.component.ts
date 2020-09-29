@@ -2,11 +2,13 @@ import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { WorkoutService } from '../workout.service';
 import { Router } from '@angular/router';
+import { extractStyleUrls } from '@angular/compiler/src/style_url_resolver';
 
 
 @Component({
   selector: 'app-fetch-data',
-  templateUrl: './fetch-data.component.html'
+  templateUrl: './fetch-data.component.html',
+  styleUrls: ['./fetch-data.component.scss']
 })
 export class FetchDataComponent {
   public results: any;

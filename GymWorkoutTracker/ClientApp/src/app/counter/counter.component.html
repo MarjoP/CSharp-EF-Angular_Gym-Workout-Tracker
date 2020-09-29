@@ -1,33 +1,48 @@
-<h1 id="addResultsHeading">Add new workout results</h1>
+<section class="content">
+  <h1 id="addResultsHeading">Add new workout results</h1>
 
-<p>Use the fields below to add new workout results</p>
 
-<section class="selectionContainer">
+  <section class="selectionContainer">
+    <h5>Select user and exercise</h5>
+    <section class="row justify-content-center dropdowns">
+      <select id="first" class="col-5 form-control form-control-lg" ng-model="selectedUser" (change)="selUser($event.target.value)">
+        <option value="select">--Select user--</option>
+        <option *ngFor="let user of users" value="{{user.userName}}">{{user.userName}}</option>
+        <option value="newUser">New</option>
+      </select>
 
-  <select ng-model="selectedUser" (change)="selUser($event.target.value)">
-    <option value="select">--Select user--</option>
-    <option *ngFor="let user of users" value="{{user.userName}}">{{user.userName}}</option>
-    <option value="newUser">New</option>
-  </select>
+      <select id="second" class="col-6 form-control form-control-lg" ng-model="selectedExercise" (change)="selExercise($event.target.value)">
+        <option value="select">--Select exercise--</option>
+        <option *ngFor="let exercise of exercises" value="{{exercise.exerciseName}}">{{exercise.exerciseName}}</option>
+        <option value="newExercise">New</option>
+      </select>
+    </section>
 
-  <select ng-model="selectedExercise" (change)="selExercise($event.target.value)">
-    <option value="select">--Select exercise--</option>
-    <option *ngFor="let exercise of exercises" value="{{exercise.exerciseName}}">{{exercise.exerciseName}}</option>
-    <option value="newExercise">New</option>
-  </select>
 
-  <section class="resultData">
-    <article>
-      <h5>Repeats</h5>
-      <input [(ngModel)]="result.Repeats" type="number" min="0">
-    </article>
-    <article>
-        <h5>Weight</h5>
-        <input [(ngModel)]="result.Weight" type="number" min="0">
-     </article>
+    <h5>Add the amount of repeats and the used weight</h5>
+    <section class="form-group row justify-content-center">
+      <article id="repcontainer" class="col-5">
+        <input class="form-control" id="reps" [(ngModel)]="result.Repeats" type="number" min="0" placeholder="Repeats">
+      </article>
+
+      <span id="x" class="col-1 align-self-end">X</span>
+
+      <article class="col-5">
+        <input class="form-control" id="weig" [(ngModel)]="result.Weight" type="number" min="0" placeholder="Weight">
+      </article>
+    </section>
+
   </section>
 
-  <button class="btn btn-primary" (click)="addNewResult()">Add result</button>
-</section>
-<hr />
+  <section class="row justify-content-center">
+    <button class="btn btn-primary" (click)="addNewResult()">Add result</button>
+  </section>
+  <hr />
 
+  <section>
+    <p id="end"></p>
+  </section>
+
+
+
+</section>

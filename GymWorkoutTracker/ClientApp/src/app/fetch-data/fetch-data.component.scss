@@ -1,0 +1,61 @@
+body {
+}
+
+.content {
+  background-image: url("../../../../Resouces/Images/fetchbg.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: repeat;
+  background-size: cover;
+  align-content: center;
+  color: #bf0053;
+ }
+.content > * {
+  padding: 5px;
+}
+
+.start {
+  text-shadow: 0.04em 0 black, 0 0.04em black, -0.04em 0 black, 0 -0.04em black, -0.04em -0.04em black, -0.04em 0.04em black, 0.04em -0.04em black, 0.04em 0.04em black;
+  font-size:20px;
+}
+
+.resultContainer {
+  background-color: rgba( 242, 252, 250, 0.7);
+}
+
+.form-control-lg {
+  font-size: 1rem;
+  padding: 0px;
+  }
+
+#first {
+  margin-right: 3px;
+  border: solid 1px black;
+}
+
+#second {
+  border: solid 1px black;
+}
+.dropdowns {
+  margin-left: 2px;
+  margin-right: 3px;
+  justify-content: space-around;
+}
+
+.line {
+    padding: 10px;
+}
+
+.line > * {
+    margin-left:20px;
+}
+
+.input {
+    border-radius:5px;
+}
+.btn-primary {
+  background-color: #1c0357;
+  border-color: rgb(45, 92, 43);
+  height: 100%;
+  min-height: 50px;
+}
