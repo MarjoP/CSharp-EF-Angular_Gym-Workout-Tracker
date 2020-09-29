@@ -1,15 +1,34 @@
-<h1>Hello, you!</h1>
-<p>Welcome to your new gym workout application, built with:</p>
-<ul>
-  <li>passion</li>
-  <li>frustration</li>
-  <li>feeling of success</li>
-</ul>
-<section class="priBtnContainer">
-  <div class="row">
-    <button class="btn btn-primary col" [routerLink]="['/counter']">Add new results</button>
+
+<section class="container">
+  <div class="bg container-fluid row">
+    <article class="welcome col">
+      <h1>Hello, you!</h1>
+      <p>Great workout results from </p>
+      <ul>
+        <li>passion</li>
+        <li>not giving up </li>
+        <li>feeling of success</li>
+        <li>appropriate recovery</li>
+        <li>sweating</li>
+      </ul>
+    </article>
   </div>
-  <div class="row">
-    <button class="btn btn-primary col" [routerLink]="['/fetch-data']">Check previous records</button>
-  </div>
+
+  <section class="priBtnContainer row justify-content-center">
+    <div class="col">
+      <button id="add" class="btn btn-primary" [routerLink]="['/counter']">Add new results</button>
+    </div>
+    <div class="col">
+      <button id="history" class="btn btn-primary" [routerLink]="['/fetch-data']">Check previous records</button>
+    </div>
+  </section>
+
+  <section class="row">
+    <footer class="footer">
+    <div class="foot-container">
+      <p id="motivation">"What seems impossible today will one day become your warm-up."</p>
+    </div>
+  </footer>
+  </section>
+
 </section>

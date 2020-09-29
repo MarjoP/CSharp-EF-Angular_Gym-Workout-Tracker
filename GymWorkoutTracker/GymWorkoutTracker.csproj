@@ -5295,6 +5295,11 @@
     <TypeScriptCompile Include="ClientApp\node_modules\%40angular\router\upgrade\upgrade.d.ts" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="NewFolder1\" />
+    <Folder Include="NewFolder\" />
+  </ItemGroup>
+
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">
