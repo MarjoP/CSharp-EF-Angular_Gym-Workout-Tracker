@@ -48,7 +48,7 @@ h1 {
     margin-top:10px;
 }
 .form-control-lg {
-  font-size: 1rem;
+  font-size: 0.9rem;
   padding: 0px;
   background-color: #1c0357;
   color: #d3cae8;
@@ -92,20 +92,23 @@ h5 {
 
 .x {
   padding: 0px;
-  padding-bottom:10px;
+  padding-bottom: 10px;
   text-align: center;
+  color: #1c0357;
+ text-shadow:none;
+  ;
 }
 
 .btn-primary {
-  background-color: #ab0241;
-  height: 100%;
-  min-height: 60px;
-  color: #d3cae8;
+  background-color: #3eed24;
+  min-height: 70px;
+  min-width: 60px;
+  color: black;
+  font-weight: 600;
+  border-color: #1c0357;
+  border-radius: 50%;
 }
 
-hr {
-    margin-bottom:5px;
-}
 
 .endResult {
     margin-top:0px;

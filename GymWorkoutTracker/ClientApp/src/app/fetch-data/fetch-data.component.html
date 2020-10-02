@@ -29,19 +29,24 @@
 
     <section class="row line justify-content-start">
       <button class="col-5 btn btn-primary" (click)="fetchSorted()">Get results</button>
-      <button class="col-5 btn btn-primary" (click)="getMax()">Create graph</button>
+      <button id="graphButton" class="col-5 btn btn-primary" (click)="getMax()">Get max result graph</button>
     </section>
   </article>
 
 
+  <section id="res" class="resultContainer">
 
-
-  <section class="resultContainer" *ngIf="show">
     <p *ngIf="!results"><em>Loading...</em></p>
     <section class="resHeader row">
       <h4 class="col-8">Results</h4>
       <button id="hide" class="col-3 btn btn-primary" (click)="hideResults()">Hide</button>
     </section>
+
+    <section class="graph">
+      <canvas id="myChart" width="300" height="200"></canvas>
+    </section>
+
+
     <section class="table-responsive">
       <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="results" small="true">
         <thead>
@@ -64,7 +69,12 @@
     </section>
   </section>
 
+  <section id="footer" class="row">
+    <footer class="footer">
+      <div class="foot-container">
+        <p id="motivation"> “Motivation is what gets you started. Habit is what keeps you going.”</p>
+      </div>
+    </footer>
+  </section>
 
-
-
-</section>
+  </section>
