@@ -9,6 +9,7 @@ using GymWorkoutTracker.Data;
 using GymWorkoutTracker.Models;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.Security.Cryptography.Xml;
+using System.Text.RegularExpressions;
 
 namespace GymWorkoutTracker.Controllers
 {
@@ -47,13 +48,15 @@ namespace GymWorkoutTracker.Controllers
         }
 
 
+
+
         // GET: api/Results/name&exercise&quantity
         [HttpGet("{user}/{exercise}/{quantity}")]
         public async Task<ActionResult<IEnumerable<Result>>> GetSelectedResults(string user, string exercise, int quantity)
         {
              Console.WriteLine("request received");
 
-           var sortedRecord =  new List<Result>();
+           var sortedRecord = new List<Result>();
             if (user == "allUsers")
             {
                 sortedRecord =  _context.Results.Include(a => a.User).Include(b => b.Exercise).OrderByDescending(s => s.Date).ToList();
@@ -80,10 +83,30 @@ namespace GymWorkoutTracker.Controllers
                 sortedRecord = sortedRecord.TakeLast(quantity).ToList();
                 }
             }
-            return  sortedRecord;
+            return sortedRecord;
         }
-        
-      
+
+        // GET: api/Results/Max/name/exercise/quantity
+        [HttpGet("max/{user}/{exercise}/{quantity}")]
+        public async Task<ActionResult<IEnumerable<Result>>> GetMaxResults(string user, string exercise, int quantity)
+        {
+            Console.WriteLine("request received");
+
+            var sortedRecord = new List<Result>();
+            if (user == "allUsers" || exercise == "allExercises")
+            {
+                return NotFound();
+            }
+            else
+            {
+                var res = _context.Results.Include(a => a.User).Include(b => b.Exercise).Where(x => x.Exercise.ExerciseName == exercise && x.User.UserName == user).ToList();
+                var maxRes = res.GroupBy(d => d.Date).Select(v => v.OrderByDescending(m => m.Weight).FirstOrDefault()).ToList();
+                return maxRes;
+            }
+        }
+
+
+
         // PUT: api/Results/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.

@@ -19,6 +19,9 @@ export class FetchDataComponent {
   public selectedExercise: string;
   public quantity: number = -1;
 
+  public show: boolean;
+  public graphVisible: boolean;
+
   constructor(private router: Router, private woService: WorkoutService) {
     this.woService.getResults().subscribe(result => {
       this.results = result;
@@ -41,16 +44,34 @@ export class FetchDataComponent {
   selExercise(filterVal: any) {
     this.selectedExercise = filterVal;
   }
-  
+
   public fetchSorted() {
-  
     this.woService.getSelectedResults(this.selectedUser, this.selectedExercise, this.quantity).subscribe(result => {
       this.results = result;
       console.log(this.selectedUser);
       console.log(this.selectedExercise);
       console.log(this.quantity);
       console.log(this.results);
+      this.show = true;
     }, error => console.error(error));
   }
-}
+  
+  public hideResults() {
+    this.show = false;
+  }
 
+  createGraph() {
+    this.getMax();
+    this.show = true;
+    this.graphVisible = true;
+  }
+
+  public getMax() {
+    this.woService.getMaxResults(this.selectedUser, this.selectedExercise, this.quantity).subscribe(result => {
+      this.results = result;
+      console.log(this.results);
+      this.show = true;
+    }, error => console.error(error));
+  }
+  
+}

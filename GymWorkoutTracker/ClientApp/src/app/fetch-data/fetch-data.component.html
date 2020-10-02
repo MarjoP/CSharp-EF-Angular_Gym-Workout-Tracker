@@ -1,59 +1,70 @@
 <section class="content">
+  <article class="query">
+    <section class="row">
+      <section class="col  start">
+        <h1 id="tableLabel">Workout history</h1>
+        <p>Select below which workout results you want to view.</p>
+      </section>
+    </section>
 
-  <section class="row">
-    <section class="col  start">
-      <h1 id="tableLabel">Workout history</h1>
-      <p>Select below which workout results you want to view.</p>
+    <section class=" row justify-content-around dropdowns">
+      <select id="first" class="col-5 form-control form-control-lg" ng-model="selectedUser" (change)="selUser($event.target.value)">
+        <option value="select">--Select user--</option>
+        <option value="allUsers">All users</option>
+        <option *ngFor="let user of users" value="{{user.userName}}">{{user.userName}}</option>
+      </select>
+
+      <select id="second" class="col-6 form-control form-control-lg" ng-model="selectedExercise" (change)="selExercise($event.target.value)">
+        <option value="select">--Select exercise--</option>
+        <option value="allExercises">All exercises</option>
+        <option *ngFor="let exercise of exercises" value="{{exercise.exerciseName}}">{{exercise.exerciseName}}</option>
+      </select>
+    </section>
+
+    <section class="row justify-content-start">
+
+      <p id="question" class="col-9 align-self-end">How many records? (-1 = all records)</p>
+      <input class="col-2 input" [(ngModel)]="quantity" type="number" min="-1">
+    </section>
+
+    <section class="row line justify-content-start">
+      <button class="col-5 btn btn-primary" (click)="fetchSorted()">Get results</button>
+      <button class="col-5 btn btn-primary" (click)="getMax()">Create graph</button>
+    </section>
+  </article>
+
+
+
+
+  <section class="resultContainer" *ngIf="show">
+    <p *ngIf="!results"><em>Loading...</em></p>
+    <section class="resHeader row">
+      <h4 class="col-8">Results</h4>
+      <button id="hide" class="col-3 btn btn-primary" (click)="hideResults()">Hide</button>
+    </section>
+    <section class="table-responsive">
+      <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="results" small="true">
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">User</th>
+            <th scope="col">Exercise</th>
+            <th scope="col">Repeats x Weight</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let result of results">
+            <td>{{ result.date.substr(0,10)}}</td>
+            <td>{{ result.user.userName }}</td>
+            <td>{{ result.exercise.exerciseName }}</td>
+            <td>{{ result.repeats }} x {{result.weight}}</td>
+          </tr>
+        </tbody>
+      </table>
     </section>
   </section>
 
-  <section class=" row justify-content-start dropdowns">
-    <select id="first" class = "col-5 form-control form-control-lg" ng-model="selectedUser" (change)="selUser($event.target.value)">
-      <option value="select">--Select user--</option>
-      <option value="allUsers">All users</option>
-      <option *ngFor="let user of users" value="{{user.userName}}">{{user.userName}}</option>
-    </select>
 
-    <select id="second" class = "col-6 form-control form-control-lg" ng-model="selectedExercise" (change)="selExercise($event.target.value)">
-      <option value="select">--Select exercise--</option>
-      <option value="allExercises">All exercises</option>
-      <option *ngFor="let exercise of exercises" value="{{exercise.exerciseName}}">{{exercise.exerciseName}}</option>
-    </select>
-  </section>
 
-  <section class="row start">
-    <p class="col">How many records? (-1 = all records)</p>
-  </section>
-
-  <section class="row line justify-content-start">
-    <input class="col-3 input" [(ngModel)]="quantity" type="number" min="-1">
-    <button class="col-5 btn btn-primary" (click)="fetchSorted()">Get results</button>
-  </section>
-
-  <section class="resultContainer">
-    <p *ngIf="!results"><em>Loading...</em></p>
-    <h4>Results...</h4>
-    <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="results">
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>User</th>
-          <th>Exercise</th>
-          <th>Repeats</th>
-          <th>Weight</th>
-
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let result of results">
-          <td>{{ result.date }}</td>
-          <td>{{ result.user.userName }}</td>
-          <td>{{ result.exercise.exerciseName }}</td>
-          <td>{{ result.repeats }}</td>
-          <td>{{ result.weight }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
 
 </section>

@@ -22,7 +22,11 @@ export class WorkoutService {
   }
   public getSelectedResults(us, ex, co) {
   //return selected, path:
-    return this.http.get(this.baseUrl + 'api/results/' + us+"/" + ex+"/"+co );
+    return this.http.get(this.baseUrl + 'api/results/' + us+"/" + ex+"/" +co );
+  }
+
+  public getMaxResults(us, ex, co) {
+    return this.http.get(this.baseUrl + 'api/results/max/' + us + "/" + ex + "/" + co);
   }
 
   public addResult(Result) {
