@@ -48,7 +48,7 @@ export class EditDataComponent {
     }, error => console.error(error));
   }
   updateResultList(): void {
-    this.woService.getSelectedResults('allUsers', 'allExercises', 20).subscribe(result => {
+    this.woService.getSelectedResults('allUsers', 'allExercises', -1).subscribe(result => {
       this.results = result;
     }, error => console.error(error));
   }

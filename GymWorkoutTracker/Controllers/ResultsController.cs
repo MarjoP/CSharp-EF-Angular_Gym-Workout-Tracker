@@ -30,7 +30,7 @@ namespace GymWorkoutTracker.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Result>>> GetResults()
         {
-            var list = await _context.Results.Include(a => a.User).Include(b => b.Exercise).OrderByDescending(s => s.Date).ToListAsync();
+            var list = await _context.Results.AsNoTracking().Include(a => a.User).Include(b => b.Exercise).OrderByDescending(s => s.Date).ToListAsync();
             return list;
         }
 
@@ -48,42 +48,56 @@ namespace GymWorkoutTracker.Controllers
         }
 
 
-
-
         // GET: api/Results/name&exercise&quantity
         [HttpGet("{user}/{exercise}/{quantity}")]
         public async Task<ActionResult<IEnumerable<Result>>> GetSelectedResults(string user, string exercise, int quantity)
         {
-             Console.WriteLine("request received");
-
-           var sortedRecord = new List<Result>();
-            if (user == "allUsers")
+            var result = new List<Result>();
+            if (user == "allUsers" && exercise == "allExercises")
             {
-                sortedRecord =  _context.Results.Include(a => a.User).Include(b => b.Exercise).OrderByDescending(s => s.Date).ToList();
-            }
-            else
-            {
-                sortedRecord = _context.Results.Include(a => a.User).Include(b => b.Exercise).OrderByDescending(s => s.Date).Where(s => s.User.UserName == user).ToList();
-            }
-            if (exercise != "allExercises")
-            {
-                if (quantity==-1)
+                if (quantity == -1)
                 {
-                    sortedRecord = sortedRecord.Where(x => x.Exercise.ExerciseName == exercise).ToList();
+                     result = await _context.Results.AsNoTracking().Include(a => a.User).Include(b => b.Exercise).OrderByDescending(s => s.Date).ToListAsync();
                 }
                 else
                 {
-                    sortedRecord = sortedRecord.Where(x => x.Exercise.ExerciseName == exercise).TakeLast(quantity).ToList();
+                     result = await _context.Results.Include(a => a.User).Include(b => b.Exercise).OrderByDescending(s => s.Date).TakeLast(quantity).ToListAsync();
                 }
             }
-            else
+            else if (user == "allUsers" && exercise != "allExercises")
             {
-                if (quantity != -1)
+                if (quantity == -1)
                 {
-                sortedRecord = sortedRecord.TakeLast(quantity).ToList();
+                    result = await _context.Results.Include(a => a.User).Include(b => b.Exercise).Where(x => x.Exercise.ExerciseName == exercise).OrderByDescending(s => s.Date).ToListAsync();
+                }
+                else
+                {
+                     result = await _context.Results.Include(a => a.User).Include(b => b.Exercise).Where(x => x.Exercise.ExerciseName == exercise).OrderByDescending(s => s.Date).TakeLast(quantity).ToListAsync();
                 }
             }
-            return sortedRecord;
+            else if (user != "allUsers" && exercise == "allExercises")
+            {
+                if (quantity == -1)
+                {
+                     result = await _context.Results.Include(a => a.User).Include(b => b.Exercise).Where(s => s.User.UserName == user).OrderByDescending(s => s.Date).ToListAsync();
+                }
+                else
+                {
+                     result = await _context.Results.Include(a => a.User).Include(b => b.Exercise).Where(s => s.User.UserName == user).OrderByDescending(s => s.Date).TakeLast(quantity).ToListAsync();
+                }
+            }
+            else if (user != "allUsers" && exercise != "allExercises")
+            {
+                if (quantity == -1)
+                {
+                    result = await _context.Results.Include(a => a.User).Include(b => b.Exercise).Where(s => s.User.UserName == user).Where(x => x.Exercise.ExerciseName == exercise).OrderByDescending(s => s.Date).ToListAsync();
+                }
+                else
+                {
+                    result = await _context.Results.Include(a => a.User).Include(b => b.Exercise).Where(s => s.User.UserName == user).Where(x => x.Exercise.ExerciseName == exercise).OrderByDescending(s => s.Date).TakeLast(quantity).ToListAsync();
+                }
+            }
+            return result;
         }
 
         // GET: api/Results/Max/name/exercise/quantity
@@ -99,7 +113,7 @@ namespace GymWorkoutTracker.Controllers
             }
             else
             {
-                var res = _context.Results.Include(a => a.User).Include(b => b.Exercise).Where(x => x.Exercise.ExerciseName == exercise && x.User.UserName == user).ToList();
+                var res = await _context.Results.Include(a => a.User).Include(b => b.Exercise).OrderBy(s => s.Date).Where(x => x.Exercise.ExerciseName == exercise && x.User.UserName == user).ToListAsync();
                 var maxRes = res.GroupBy(d => d.Date).Select(v => v.OrderByDescending(m => m.Weight).FirstOrDefault()).ToList();
                 return maxRes;
             }
@@ -151,7 +165,7 @@ namespace GymWorkoutTracker.Controllers
                 Exercise = _context.GetExercise(result.Exercise.ExerciseName),
                 Weight = result.Weight,
                 Repeats = result.Repeats,
-                Date = DateTime.Now.Date
+                Date = DateTime.Now
             };
              
             _context.Results.Add(newResult);

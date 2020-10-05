@@ -24,7 +24,7 @@
       </select>
     </section>
 
-    <section class="form-group row justify-content-center">
+    <section class="form-group row justify-content-center" id="numberinput">
       <article id="repcontainer" class="col-5">
         <input class="form-control" id="reps" [(ngModel)]="result.Repeats" type="number" min="0" placeholder="Repeats">
       </article>
@@ -38,13 +38,14 @@
 
   </section>
 
-  <section class="row justify-content-center">
+  <section class="row justify-content-center" id="margin5">
     <button id="hide" class="btn btn-primary" (click)="addNewResult()">Add result</button>
   </section>
+  <section class="row justify-content-end end">
+    <button id="toResults" class="btn  btn-arrow-right" [routerLink]="['/fetch-data']">To results --></button>
+  </section>
 
-
-
-  <section class="row">
+  <section class="row ">
     <footer class="footer">
       <div class="foot-container">
         <p id="motivation">“The only bad workout is the one that didn’t happen.”</p>
@@ -53,5 +54,7 @@
   </section>
 
 
-
 </section>
+
+
+

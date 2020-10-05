@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using GymWorkoutTracker.Data;
+using Microsoft.AspNetCore.ResponseCompression;
+using System.IO.Compression;
 
 namespace GymWorkoutTracker
 {
@@ -39,6 +41,18 @@ namespace GymWorkoutTracker
              options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
                );
 
+            //Compression
+            services.Configure<GzipCompressionProviderOptions>(options =>
+            {
+                options.Level = CompressionLevel.Optimal;
+            });
+
+            services.AddResponseCompression(options =>
+            {
+                options.EnableForHttps = true;
+                options.Providers.Add<GzipCompressionProvider>();
+                
+            });
 
             //Enabling CORS
             /*   services.AddCors(options =>
@@ -67,6 +81,7 @@ namespace GymWorkoutTracker
             }
 
             app.UseHttpsRedirection();
+            app.UseResponseCompression();
             app.UseStaticFiles();
             if (!env.IsDevelopment())
             {

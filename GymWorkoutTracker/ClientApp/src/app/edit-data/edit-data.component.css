@@ -1,0 +1,29 @@
+
+.selectionContainer {
+    margin-top:25px;
+}
+
+.form-control-lg {
+  font-size: 0.9rem;
+  padding: 0px;
+  background-color: #1c0357;
+  color: #d3cae8;
+  border: solid 1px black;
+  height: 50px;
+}
+
+.btn-primary {
+  background-color: rgb(217, 0, 83);
+  color: #d3cae8;
+  min-width: 60px;
+  font-weight: 600;
+  border-color: #1c0357;
+}
+
+.row {
+    margin-bottom:15px;
+}
+
+#note {
+  color: rgb(217, 0, 83);
+}

@@ -1,28 +1,40 @@
 <h1>Edit data</h1>
-<p>Edit/emove username or exercise from the list or remove result from database</p>
-<p>Note. Deleting username does not delete the result records? Or does it?</p>
+<p>Edit/emove user or exercise from the list or remove result from database.</p>
+<p id="note">Note! Deleting a user also deletes all of the user's recorded results!</p>
 
 <section class="selectionContainer">
-  <select ng-model="selectedUser" (change)="selUser($event.target.value)">
-    <option value="select">--Select user--</option>
-    <option *ngFor="let user of users" value="{{user.userName}}">{{user.userName}}</option>
-  </select>
 
-  <select ng-model="selectedExercise" (change)="selExercise($event.target.value)">
-    <option value="select">--Select exercise--</option>
-    <option *ngFor="let exercise of exercises" value="{{exercise.exerciseName}}">{{exercise.exerciseName}}</option>
-  </select>
+  <section class="row justify-content-around">
+    <select id="first" class="col-5 form-control form-control-lg" ng-model="selectedUser" (change)="selUser($event.target.value)">
+      <option value="select">--Select user--</option>
+      <option *ngFor="let user of users" value="{{user.userName}}">{{user.userName}}</option>
+    </select>
+    <button class="btn btn-primary col-5" (click)="deleteUserName()">Delete username</button>
+  </section>
 
-<select ng-model="selectedEResult" (change)="selResult($event.target.value)">
-  <option value="select">--Select result--</option>
-  <option *ngFor="let result of results" value="{{result.id}}">{{result.id}}:{{result.date}}, {{result.exercise.exerciseName}}, 
-  {{result.user.userName}}, {{result.repeats}} x {{result.weight}}</option>
-</select>
+  <section class="row justify-content-around">
+    <select id="second" class="col-5 form-control form-control-lg" ng-model="selectedExercise" (change)="selExercise($event.target.value)">
+      <option value="select">--Select exercise--</option>
+      <option *ngFor="let exercise of exercises" value="{{exercise.exerciseName}}">{{exercise.exerciseName}}</option>
+    </select>
+    <button class="btn btn-primary col-5" (click)="deleteExerciseName()">Delete Exercise </button>
+  </section>
+
+  <section class="row justify-content-around">
+    <select id="first" class="col-5 form-control form-control-lg" ng-model="selectedEResult" (change)="selResult($event.target.value)">
+      <option value="select">--Select result--</option>
+      <option *ngFor="let result of results" value="{{result.id}}">
+        {{result.id}}: {{result.date.substr(0,10)}}, {{result.exercise.exerciseName}},
+        {{result.user.userName}}, {{result.repeats}} x {{result.weight}}
+      </option>
+    </select>
+    <button class="btn btn-primary col-5" (click)="deleteResult()">Delete result</button>
+  </section>
+
 </section>
 
-<button class="btn btn-primary" (click)="deleteUserName()">Delete username</button>
-<button class="btn btn-primary" (click)="deleteExerciseName()">Delete Exercise </button>
-<button class="btn btn-primary" (click)="deleteResult()">Delete result</button>
+
+
 
 
 

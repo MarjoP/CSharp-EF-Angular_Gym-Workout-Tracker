@@ -24,7 +24,7 @@ export class FetchDataComponent {
     },
     Repeats: "",
     Weight: "",
-  }
+  };
   public users: any;
   public exercises: any;
 
@@ -69,6 +69,7 @@ export class FetchDataComponent {
     this.woService.getSelectedResults(this.selectedUser, this.selectedExercise, this.quantity).subscribe(result => {
       this.results = result;
       document.getElementById("res").style.display = "block";
+      document.getElementById("myChart").style.display = "none";
       document.getElementById("footer").style.display = "none";
     }, error => console.error(error));
   }
