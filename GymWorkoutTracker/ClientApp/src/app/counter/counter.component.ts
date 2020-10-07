@@ -26,9 +26,8 @@ export class CounterComponent {
       Weight: "",
     }
 
-
+  public data: any = { item: "" };
   public newUser: any = { userName: "" };
-
   public newExercise: any = { exerciseName: "" };
 
   constructor(private router: Router, private woService: WorkoutService, public dialog: MatDialog) {
