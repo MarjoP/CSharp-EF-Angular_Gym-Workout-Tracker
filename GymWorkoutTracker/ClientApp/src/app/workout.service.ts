@@ -67,6 +67,6 @@ export class WorkoutService {
   }
 
   public deleteExercise(exercise) {
-    return this.http.delete(this.baseUrl + 'api/exercise/' + exercise.exerciseName, exercise.exerciseName);
+    return this.http.delete(this.baseUrl + 'api/exercises/' + exercise.exerciseName, exercise.exerciseName);
   }
 }

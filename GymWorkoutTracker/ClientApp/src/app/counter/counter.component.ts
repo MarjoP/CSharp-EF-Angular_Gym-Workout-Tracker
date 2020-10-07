@@ -70,35 +70,38 @@ export class CounterComponent {
 
   openUserDialog(): void {
     const dialogRef = this.dialog.open(DialogBoxComponent, {
-      width: '300px',
-      height: '300px',
-      data: { newUser: this.newUser.userName }
+      data: {
+        item: "user",
+        newUser: this.newUser.userName,
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       this.newUser.userName = result;
-      this.woService.addUser(this.newUser).subscribe(res => {
-        Swal.fire('Great! New user added.');
-        this.updateUserList();
-        this.newUser.userName = "";
-      }, error => Swal.fire('Could not add new user! Check if the username already exists in the list or try again with different name.'));
+      if (this.newUser.userName != null) {
+        this.woService.addUser(this.newUser).subscribe(res => {
+          Swal.fire('Great! New user added.');
+          this.updateUserList();
+          this.newUser.userName = "";
+        }, error => Swal.fire('Could not add new user! Check if the username already exists in the list or try again with different name.'));
+      }
     });
   }
 
   openExerciseDialog(): void {
     const dialogRef = this.dialog.open(DialogBoxComponent, {
-      width: '300px',
-      height: '300px',
-      data: { newExercise: this.newExercise.ExerciseName }
+      data: { item: "exercise", newExercise: this.newExercise.ExerciseName }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       this.newExercise.ExerciseName = result;
-      this.woService.addExercise(this.newExercise).subscribe(res => {
-        Swal.fire('Great! New exercise added.');
-        this.updateExerciseList();
-        this.newExercise.ExerciseName = "";
-      }, error => Swal.fire('Could not add new exercise! Maybe it is already in the list?'));
+      if (this.newExercise.ExerciseName != null) {
+        this.woService.addExercise(this.newExercise).subscribe(res => {
+          Swal.fire('Great! New exercise added.');
+          this.updateExerciseList();
+          this.newExercise.ExerciseName = "";
+        }, error => Swal.fire('Could not add new exercise! Maybe it is already in the list?'));
+      }
     });
   }
 

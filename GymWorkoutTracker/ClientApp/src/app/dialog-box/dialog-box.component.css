@@ -1,10 +1,30 @@
 .dialogBox {
-    height:150px;
-    width: 200px;
-   border: solid 2px lightgray;
-   border-radius: 8px;
+  display: block;
+  padding: 10px;
+  overflow: auto;
+  box-sizing: border-box;
+  box-shadow: 0 11px 15px -7px rgba(0,0,0,.2), 0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12);
+  height: 230px;
+  width: 280px;
+  border: solid 4px #3eed24;
+  border-radius:5px;
+  color: #1c0357;
+  position: fixed;
+  top: 200px;
+  left: 50px;
+  background-color: #ededed;
+  pointer-events: auto;
 }
 
-#nameInput {
-    height: 80px;
+#nameIp{
+   border-bottom:1px lightgray solid;
+   height: 80px;
+   max-width:250px;
+}
+.mat-input-underline {
+  background-color: black;
+}
+
+.mat-dialog-actions{
+
 }

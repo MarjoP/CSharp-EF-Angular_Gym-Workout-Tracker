@@ -1,5 +1,6 @@
 
 <section class="dialogBox" cdkTrapFocus>
+  <h3>Add new {{data.item}}</h3>
   <div mat-dialog-content id="nameIp">
     <p>Name: </p>
     <mat-form-field>
@@ -9,6 +10,6 @@
   </div>
   <div mat-dialog-actions>
     <button mat-button (click)="onNoClick()">Cancel</button>
-    <button mat-button [mat-dialog-close]="data.newUser" cdkFocusInitial>Ok</button>
+    <button mat-button [mat-dialog-close]="data.newUser">Ok</button>
   </div>
 </section>

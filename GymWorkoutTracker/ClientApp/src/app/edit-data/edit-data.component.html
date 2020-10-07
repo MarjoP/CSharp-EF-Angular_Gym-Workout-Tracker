@@ -24,7 +24,7 @@
     <select id="first" class="col-5 form-control form-control-lg" ng-model="selectedEResult" (change)="selResult($event.target.value)">
       <option value="select">--Select result--</option>
       <option *ngFor="let result of results" value="{{result.id}}">
-        {{result.id}}: {{result.date.substr(0,10)}}, {{result.exercise.exerciseName}},
+        {{result.date.substr(0,10)}}, {{result.exercise.exerciseName}},
         {{result.user.userName}}, {{result.repeats}} x {{result.weight}}
       </option>
     </select>
