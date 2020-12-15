@@ -1,24 +1,31 @@
 # Introduction 
-Rakenteilla oleva EntityFrameworkia hy�dynt�v� sovellus kuntosalitulosten tallentamiseen. 
+Web app utilizing Entity Framework to record and review Gym workout results.
 
 # Getting Started
-At the current stage the adding and querying data into and from the database is handled through the console. However, an appropriate user interface will be added in near future. 
 
 Actions and using the app:
-1. Add new user: This action will create a new user profile with a given name. You may not use an existing user name.
+1. Add new results: 
+    a) Select user from the dropdown list. Select "new" if you want to add a new user and write the user's name to the opening dialog box. 
+    b) Select exercise from the dropdown list. Select "new" if you want to add a new exercise and write the exercise's name to the opening dialog box. 
+    c) Add the amount of repeats and the used weight and hit Add result -button. 
 
-2. List users: You will be able to see the reserved names ie. existing user profiles in the current database (later this should be a drop down list etc.). 
+2. Review results: 
+    Table of results
+    a) Select all users or one specific user from the dropdown list
+    b) Select all exercises or one specific exercise from the dropdown list
+    c) Limit the amount of results if needed/wanted
+    d) Hit the "Get results" -button.
 
-3. Add new exercise: This action will add a new gym exercise with a given name to the database. This needs to be done only once for each exercise type. 
+    Graph of max-results
+    a) Select one specific user
+    b) Select one specific exercise
+    c) Limit the amount of results if needed/wanted
+    d) Hit the "Get max results to graph" -button.
 
-4. List exercises: You will be able to see which exercises have already added to the database (later this shoud be a drop down list etc.).
-
-5. Add new result: This enables the user to add new result for a specific exercise and user to the database. Currently the app will record the day the result was added, however there should be an option to record also past exercises after UI development.
-
-6. List all results: This will list all results of all the users in the database.
-
-7. List results based on selection: This enables to get results for specific user or for specific exercise from the database. You can also choose to limit the amount of retrieved results (useful if the database gets big with lot of results...) There will be further options later on to get e.g. max-results and graphical expression of progress of a specific user. 
-
+3. Delete data:
+    a) delete user by selecting the user from the dropdown list and hitting Delete user -button. NOTE! This deletes all the user's results as well.
+    b) delete exercise by selecting the exercise from the dropdown list and hitting Delete exercise -button. NOTE! Can only be deleted if no one has recorded any results for this exercise.
+    c) delete result by selecting the result from the dropdown list and hitting Delete result -button
 
 # Build and Test
 TODO: Describe and show how to build your code and run the tests. 
