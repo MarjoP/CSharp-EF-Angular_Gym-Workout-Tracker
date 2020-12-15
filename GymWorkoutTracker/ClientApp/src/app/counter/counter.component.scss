@@ -122,7 +122,7 @@ h5 {
 }
 
 #toResults {
-    font-size:12px;
+  font-size:12px;
   background-color: #1c0357;
   color: #d3cae8;
  min-width: 20%;
@@ -159,14 +159,58 @@ h5 {
   
 }
 
-@media only screen and (min-width: 1023px) {
-    .start {
-        min-height: 300px;
+
+@media only screen and (min-width: 767px) {
+
+  .start {
+    min-height: 450px;
+    background-position: center;
+    padding: 5px;
+  }
+
+  .start h1 {
+      font-size:36px;
+      padding:15px;
+  }
+
+  ol li {
+    font-size: 28px;
+    
+  }
+
+  .dropdowns >* {
+      font-size:1.5rem;
+  }
+
+  input {
+    font-size: 1.5rem;
+  }
+
+
+  .btn-primary {
+    min-height: 90px;
+    min-width: 130px;
+    font-size:1.5rem;
+  }
+
+  .btn-primary:hover {
+    background-color: rgb(217, 0, 83);
+  }
+
+  #toResults {
+    font-size: 1.5rem;
     }
-    .start h1 {
-        margin-bottom:20px;
-    }
+
+  #toResults:hover {
+    background-color: #3eed24;
+    color: #1c0357;
+    font-weight: 500;
+    border: solid 1px rgb(217, 0, 83);
+  }
+
     .footer {
-        height: 40px;
+      font-size: 22px;
     }
-}
+  }
+
+

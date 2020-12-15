@@ -14,7 +14,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./fetch-data.component.scss']
 })
 export class FetchDataComponent {
-  public results: any = {
+  public results: any = [];
+    /*{
     Date: "",
     User: {
       UserName: ""
@@ -24,7 +25,7 @@ export class FetchDataComponent {
     },
     Repeats: "",
     Weight: "",
-  };
+    };*/
   public users: any;
   public exercises: any;
 

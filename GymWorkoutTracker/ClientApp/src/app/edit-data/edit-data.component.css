@@ -27,3 +27,24 @@
 #note {
   color: rgb(217, 0, 83);
 }
+
+@media only screen and (min-width: 767px) {
+
+p {
+   font-size:1.5rem;
+}
+
+.selectionContainer > * {
+    margin-top:60px;
+}
+
+  .form-control-lg {
+      font-size:1.5rem;
+      height:70px;
+  }
+
+  .btn-primary {
+      font-size:1.5rem;
+  }
+
+}

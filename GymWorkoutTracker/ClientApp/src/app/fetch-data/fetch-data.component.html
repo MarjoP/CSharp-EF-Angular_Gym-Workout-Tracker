@@ -22,7 +22,6 @@
     </section>
 
     <section class="row justify-content-start">
-
       <p id="question" class="col-9 align-self-end">How many records? (-1 = all records)</p>
       <input class="col-2 input" [(ngModel)]="quantity" type="number" min="-1">
     </section>
@@ -34,7 +33,7 @@
   </article>
 
   <section class="row justify-content-end end">
-    <button id="toAddNew" class="btn  btn-arrow-right" [routerLink]="['/counter']">Add new results></button>
+    <button id="toAddNew" class="btn btn-arrow-right" [routerLink]="['/counter']">Add new results></button>
   </section>
 
   <section id="res" class="resultContainer">

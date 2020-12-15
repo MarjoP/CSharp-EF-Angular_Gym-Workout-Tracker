@@ -78,6 +78,14 @@ body {
   min-height: 62px;
   font-weight:600;
 }
+
+.btn-primary:hover {
+  background-color: rgb(217, 0, 83);
+}
+
+.btn-primary:active {
+  background-color: rgb(217, 0, 83) !important;
+}
 #hide {
   background-color: rgb(217, 0, 83);
   color: #d3cae8;
@@ -142,41 +150,66 @@ body {
 }
 
 
-@media only screen and (min-width: 1023px) {
-    .query {
-        min-height:500px;
-    }
+@media only screen and (min-width: 767px) {
+  .query {
+    min-height: 700px;
+  }
+
   .content {
-    font-size: 22px;
-    }
+    font-size: 24px;
+  }
 
-    .content > * {
-      padding: 15px;
-    }
+  .content > * {
+    padding: 15px;
+  }
 
-    .dropdowns {
-        margin-bottom:20px;
-        margin-top:20px;
-    }
+  .dropdowns {
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+  .dropdowns > * {
+    font-size: 1.5rem;
+  }
 
-    .line {
-        margin-top:60px;
-    }
+  .line {
+    margin-top: 60px;
+  }
+
   .btn-primary {
-      font-size:20px;
+    font-size: 1.5rem !important;
+    height:70px;
   }
+ 
+
   #question {
-    font-size: 18px;
+    font-size: 24px;
   }
+ 
   .form-control-lg {
     font-size: 1.1rem;
-    }
-  #graphButton {
-    font-size: 20px;
   }
 
   table td, .table th {
     font-size: 16px;
     padding: 4px 9px !important;
   }
+
+  #toAddNew {
+      font-size:1rem;
+  }
+  #toAddNew:hover {
+    background-color: #3eed24;
+    color: #1c0357;
+    font-weight:500;
+    border: solid 1px rgb(217, 0, 83);
+  }
+
+
+  .table td, .table th {
+    font-size: 20px;
+    }
+
+    .footer {
+      font-size: 22px;
+    }
   }
