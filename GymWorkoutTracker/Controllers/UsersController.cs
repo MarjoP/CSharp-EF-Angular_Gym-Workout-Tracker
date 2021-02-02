@@ -74,35 +74,16 @@ namespace GymWorkoutTracker.Controllers
             return NoContent();
         }
 
-
-       /* // POST: api/Users
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
-        {
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetUser", new
-            {
-                id = user.UserId
-            }, user);
-        }
-       */
         // POST: api/Users
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
           [HttpPost]
           public async Task<ActionResult<User>> PostUser(User user)
           {
-              if (_context.CreateUser(user.UserName))
+              if (await _context.CreateUser(user.UserName))
               {
                   await _context.SaveChangesAsync();
-                  return CreatedAtAction("GetUser", new
-              {
-                  id = user.UserId
-              }, user);
+                  return CreatedAtAction("GetUser", new { id = user.UserId }, user);
               }
               else
               {
@@ -111,12 +92,12 @@ namespace GymWorkoutTracker.Controllers
              
           }
         
-        // DELETE: api/Users/Pertti
+        // DELETE: api/Users/'Name'
         [HttpDelete("{userName}")]
         public async Task<ActionResult<User>> DeleteUser(string userName)
         {
-            var user = _context.GetUser(userName);
-              var index = user.UserId;
+            var user = await _context.Users.Where(user => user.UserName == userName).FirstOrDefaultAsync<User>();
+            var index = user.UserId;
               user = await _context.Users.FindAsync(index);
               if (user == null)
               {
@@ -129,13 +110,6 @@ namespace GymWorkoutTracker.Controllers
               await _context.SaveChangesAsync();
               return user;
         }
-
-
-
-
-
-
-
 
         private bool UserExists(int id)
         {

@@ -41,17 +41,12 @@ namespace GymWorkoutTracker.Data
                 .OnDelete(DeleteBehavior.Restrict);
         }
 
-        public User GetUser(string name)
+        public async Task<Boolean> CreateUser(String name)
         {
-            var user = this.Users.Where(user => user.UserName == name).FirstOrDefault<User>();
-            return user;
-        }
-        public Boolean CreateUser(String name)
-        {
-            if (!String.IsNullOrEmpty(name) && GetUser(name) == null)
+            if (!String.IsNullOrEmpty(name) &&  Users.Where(user => user.UserName == name).FirstOrDefault<User>() == null)
             {
                 Users.Add(new User() { UserName = name });
-                SaveChanges();
+                await SaveChangesAsync();
                 return true;
             }
             else
@@ -60,102 +55,18 @@ namespace GymWorkoutTracker.Data
             }
         }
 
-        public List<string> GetAllUsers()
+        public async Task<Boolean> CreateExercise(String name)
         {
-            if (!Users.Any())
-            {
-                return null;
-            }
-            else
-            {
-                return Users.Select(s => s.UserName).ToList();
-            }
-        }
-        public Exercise GetExercise(string name)
-        {
-            var exercise = this.Exercises.Where(exer => exer.ExerciseName == name).FirstOrDefault<Exercise>();
-            return exercise;
-        }
-        public Boolean CreateExercise(String name)
-        {
-            if (!String.IsNullOrEmpty(name) && GetExercise(name) == null)
+            if (!String.IsNullOrEmpty(name) && Exercises.Where(exer => exer.ExerciseName == name).FirstOrDefault<Exercise>() == null)
             {
                 Exercises.Add(new Exercise() { ExerciseName = name });
-                SaveChanges();
+                await SaveChangesAsync();
                 return true;
             }
             else
             {
                 return false;
             }
-        }
-        public List<string> GetAllExercises()
-        {
-            if (!Exercises.Any())
-            {
-                return null;
-            }
-            else
-            {
-                return Exercises.Select(s => s.ExerciseName).ToList();
-            }
-        }
-        public Boolean AddResult(User user, Exercise exer, int reps, int weight, DateTime date)
-        {
-            try
-            {
-                Results.Add(new Result()
-                {
-                    User = user,
-                    Exercise = exer,
-                    Repeats = reps,
-                    Weight = weight,
-                    Date = date
-                });
-                SaveChanges();
-                return true;
-            }
-            catch (Exception e)
-            {
-                return false;
-            }
-        }
-       
-     
-        public List<Result> GetAllResults()
-        {
-
-            if (!Results.Any())
-            {
-                return null;
-            }
-            else
-            {
-            
-            return Results.Include(a => a.User).OrderByDescending(s => s.Date).ToList();
-        }
-        }
-    
-        public List<Result> GetSelectedResults(string name, string exer, int qty)
-        {
-            var sortedRecord = new List<Result>();
-            if (name == "allUsers")
-            {
-                sortedRecord = Results.Include(a => a.User).Include(b => b.Exercise).OrderByDescending(s => s.Date).ToList();
-            }
-            else
-            {
-                sortedRecord = Results.Include(a => a.User).Include(b => b.Exercise).OrderByDescending(s => s.Date).Where(s => s.User.UserName == name).ToList();
-            }
-            if (exer != "allExercises")
-            {
-                sortedRecord = sortedRecord.Where(x => x.Exercise.ExerciseName == exer).TakeLast(qty).ToList();
-            }
-            else
-            {
-                sortedRecord = sortedRecord.TakeLast(qty).ToList();
-            }
-            return sortedRecord;
         }
     }
 }

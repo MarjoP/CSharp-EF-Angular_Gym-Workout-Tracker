@@ -73,19 +73,7 @@ namespace GymWorkoutTracker.Controllers
 
             return NoContent();
         }
-/*
-        // POST: api/Exercises
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost]
-        public async Task<ActionResult<Exercise>> PostExercise(Exercise exercise)
-        {
-            _context.Exercises.Add(exercise);
-            await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetExercise", new { id = exercise.ExerciseId }, exercise);
-        }
-*/
         // POST: api/Exercises
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
@@ -93,13 +81,10 @@ namespace GymWorkoutTracker.Controllers
         public async Task<ActionResult<Exercise>> PostUser(Exercise exercise)
         {
           
-            if (_context.CreateExercise(exercise.ExerciseName))
+            if (await _context.CreateExercise(exercise.ExerciseName))
             {
                 await _context.SaveChangesAsync();
-                return CreatedAtAction("GetExercise", new
-                {
-                    id = exercise.ExerciseId
-                }, exercise);
+                return CreatedAtAction("GetExercise", new { id = exercise.ExerciseId }, exercise);
             }
             else
             {
@@ -112,7 +97,8 @@ namespace GymWorkoutTracker.Controllers
         [HttpDelete("{exerciseName}")]
         public async Task<ActionResult<Exercise>> DeleteExercise(string exerciseName)
         {
-            var exercise = _context.GetExercise(exerciseName);
+            var exercise = await _context.Exercises.Where(exer => exer.ExerciseName == exerciseName).FirstOrDefaultAsync<Exercise>();
+            
             var index = exercise.ExerciseId;
             exercise = await _context.Exercises.FindAsync(index);
 

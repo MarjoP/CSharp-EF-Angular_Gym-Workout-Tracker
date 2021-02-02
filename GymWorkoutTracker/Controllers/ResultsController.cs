@@ -19,11 +19,9 @@ namespace GymWorkoutTracker.Controllers
     {
         private readonly WorkoutContext _context;
 
-
         public ResultsController(WorkoutContext context)
         {
             _context = context;
-           
         }
 
         // GET: api/Results
@@ -104,7 +102,6 @@ namespace GymWorkoutTracker.Controllers
         [HttpGet("max/{user}/{exercise}/{quantity}")]
         public async Task<ActionResult<IEnumerable<Result>>> GetMaxResults(string user, string exercise, int quantity)
         {
-
             var sortedRecord = new List<Result>();
             if (user == "allUsers" || exercise == "allExercises")
             {
@@ -169,8 +166,8 @@ namespace GymWorkoutTracker.Controllers
         {
             Result newResult = new Result
             {
-                User = _context.GetUser(result.User.UserName),
-                Exercise = _context.GetExercise(result.Exercise.ExerciseName),
+                User = _context.Users.Where(user => user.UserName == result.User.UserName).FirstOrDefault<User>(),
+                Exercise = _context.Exercises.Where(exer => exer.ExerciseName == result.Exercise.ExerciseName).FirstOrDefault<Exercise>(),
                 Weight = result.Weight,
                 Repeats = result.Repeats,
                 Date = DateTime.Now.Date
