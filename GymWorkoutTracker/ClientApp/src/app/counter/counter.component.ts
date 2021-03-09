@@ -31,13 +31,8 @@ export class CounterComponent {
   public newExercise: any = { exerciseName: "" };
 
   constructor(private router: Router, private woService: WorkoutService, public dialog: MatDialog) {
-    this.woService.getUsers().subscribe(result => {
-      this.users = result;
-    }, error => console.error(error));
-
-    this.woService.getExercises().subscribe(result => {
-      this.exercises = result;
-    }, error => console.error(error));
+    this.updateUserList();
+    this.updateExerciseList();
   }
 
   updateUserList(): void {

@@ -15,17 +15,7 @@ import Swal from 'sweetalert2';
 })
 export class FetchDataComponent {
   public results: any = [];
-    /*{
-    Date: "",
-    User: {
-      UserName: ""
-    },
-    Exercise: {
-      ExerciseName: ""
-    },
-    Repeats: "",
-    Weight: "",
-    };*/
+  
   public users: any;
   public exercises: any;
 

@@ -15,13 +15,13 @@ namespace GymWorkoutTracker.Data
         {
         }
 
-        public DbSet<GymWorkoutTracker.Models.User> Users {
+        public DbSet<User> Users {
             get; set;
         }
-        public DbSet<GymWorkoutTracker.Models.Result> Results {
+        public DbSet<Result> Results {
             get; set;
         }
-        public DbSet<GymWorkoutTracker.Models.Exercise> Exercises {
+        public DbSet<Exercise> Exercises {
             get; set;
         }
 

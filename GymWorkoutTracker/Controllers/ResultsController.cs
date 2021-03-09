@@ -164,6 +164,10 @@ namespace GymWorkoutTracker.Controllers
         [HttpPost]
         public async Task<ActionResult<Result>> PostResult(Result result)
         {
+            if (result.User.UserName == "" || result.Exercise.ExerciseName == "")
+            {
+                return NotFound();
+            }
             Result newResult = new Result
             {
                 User = _context.Users.Where(user => user.UserName == result.User.UserName).FirstOrDefault<User>(),
